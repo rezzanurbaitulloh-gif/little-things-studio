@@ -12,7 +12,7 @@ export const siteConfig = {
   tagline: "A little gift, a lot of meaning.",
   description:
     "Thoughtfully made gifts for every little and big moment — flower bouquets, snack bouquets, hampers, gift boxes and custom keepsakes, wrapped with care.",
-  url: "https://littlethings-studio.example.com",
+  url: "https://little-things-studio-nine.vercel.app",
   /** International format without "+" — e.g. "6281234567890". Empty = not configured. */
   whatsappNumber: "",
   /** Full profile URL — e.g. "https://instagram.com/littlethings.studio". Empty = not configured. */
