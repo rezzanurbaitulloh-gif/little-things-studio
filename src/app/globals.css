@@ -1,26 +1,247 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* ── Primitive palette ─────────────────────────────── */
+  --color-ivory: #f4efe6;
+  --color-cream: #fffcf7;
+  --color-terracotta: #d77c69;
+  --color-terracotta-deep: #bd6350;
+  --color-sage: #a9b69b;
+  --color-sage-soft: #e3e8da;
+  --color-butter: #e8c98e;
+  --color-butter-soft: #f7ead0;
+  --color-forest: #343a32;
+  --color-forest-deep: #262b26;
+  --color-muted: #77746e;
+  --color-line: #e4ded3;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ── Typography ────────────────────────────────────── */
+  --font-display: var(--font-dm-serif), "Georgia", serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* ── Motion ────────────────────────────────────────── */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-spin-slow: spin-slow 16s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 }
 
+/* ── Base ────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ivory);
+  color: var(--color-forest);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: var(--color-cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Typographic voices ──────────────────────────────── */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility display-1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 7.2vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+@utility display-2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+@utility display-3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+  line-height: 1.15;
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.75rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.25s var(--ease-soft), background-color 0.25s var(--ease-soft),
+    color 0.25s var(--ease-soft), border-color 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft);
+}
+
+@utility btn-primary {
+  background: var(--color-terracotta);
+  color: var(--color-cream);
+  box-shadow: 0 10px 24px -12px rgb(215 124 105 / 0.55);
+}
+
+@utility btn-dark {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+
+@utility btn-outline {
+  border: 1.5px solid var(--color-forest);
+  color: var(--color-forest);
+  background: transparent;
+}
+
+@utility btn-light {
+  border: 1.5px solid rgb(255 252 247 / 0.4);
+  color: var(--color-cream);
+  background: transparent;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-terracotta-deep);
+}
+.btn-dark:hover:not(:disabled) {
+  background: var(--color-forest-deep);
+}
+.btn-outline:hover:not(:disabled) {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+.btn-light:hover:not(:disabled) {
+  border-color: var(--color-cream);
+  background: rgb(255 252 247 / 0.1);
+}
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+/* ── Scroll reveal ───────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease-soft),
+    transform 0.7s var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-clip {
+  clip-path: inset(0 0 101% 0);
+  transition: clip-path 0.95s var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-clip.is-visible {
+  clip-path: inset(0 0 -1% 0);
+}
+
+/* hero headline line mask */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+.line-mask > span {
+  display: block;
+  transform: translateY(112%);
+  transition: transform 0.85s var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.is-visible .line-mask > span,
+.line-mask.is-visible > span {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal-clip,
+  .line-mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  .animate-marquee,
+  .animate-spin-slow,
+  .animate-float,
+  .img-swap {
+    animation: none !important;
+  }
+}
+
+/* ── Modal image swap ────────────────────────────────── */
+@keyframes img-swap {
+  from { opacity: 0.35; transform: scale(1.015); }
+  to { opacity: 1; transform: scale(1); }
+}
+.img-swap {
+  animation: img-swap 0.5s var(--ease-soft);
+}
+
+/* ── Misc ────────────────────────────────────────────── */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+.dotted-rule {
+  background-image: radial-gradient(circle, var(--color-line) 1.5px, transparent 1.5px);
+  background-size: 12px 2px;
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 2px;
 }
