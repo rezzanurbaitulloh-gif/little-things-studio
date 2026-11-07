@@ -43,10 +43,10 @@ export function BrandIntro() {
             <Reveal delay={220}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
                 Little Things Studio began at a kitchen table with a roll of
-                kraft paper and one stubborn belief: a gift doesn't need to
+                kraft paper and one stubborn belief: a gift doesn&rsquo;t need to
                 be big to matter. So we obsess over the small stuff — the
                 ribbon tension, the stem angle, the card handwriting — because
-                that's where the feeling lives.
+                that&rsquo;s where the feeling lives.
               </p>
             </Reveal>
 

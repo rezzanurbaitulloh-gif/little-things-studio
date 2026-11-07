@@ -38,16 +38,14 @@ export function CustomGiftSection() {
             </Reveal>
             <Reveal delay={120}>
               <h2 className="display-2 mt-5 text-balance">
-                Tell us the person.
+                Your idea.
                 <br />
-                <em className="text-butter">We wrap the rest.</em>
+                <em className="text-butter">Our little magic.</em>
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-5 max-w-lg leading-relaxed text-cream/70">
-                Punya ide hadiah yang tidak ada di katalog? Kami rakit satu per
-                satu mengikuti ceritamu — dari tema cozy sampai kotak self-care
-                lengkap.
+                Have something special in mind? Let&rsquo;s create it together.
               </p>
             </Reveal>
 
@@ -85,7 +83,7 @@ export function CustomGiftSection() {
                     className="btn btn-primary"
                   >
                     <WhatsAppIcon className="h-4 w-4" />
-                    Mulai Inquiry Custom
+                    Create Your Custom Gift
                   </a>
                 ) : (
                   <>
@@ -94,7 +92,7 @@ export function CustomGiftSection() {
                       aria-disabled="true"
                     >
                       <WhatsAppIcon className="h-4 w-4" />
-                      Mulai Inquiry Custom
+                      Create Your Custom Gift
                     </span>
                     <p className="mt-3 max-w-md text-xs leading-relaxed text-cream/55">
                       Demo — nomor WhatsApp belum dikonfigurasi. Tombol ini

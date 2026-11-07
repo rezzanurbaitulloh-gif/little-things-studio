@@ -17,18 +17,23 @@ export function FinalCTA() {
           </Reveal>
           <Reveal delay={100}>
             <h2 className="display-2 mt-6 text-balance text-forest">
-              Found something you love?
+              Make someone&rsquo;s day
               <br />
-              <em className="text-terracotta">We&rsquo;ll wrap it with care.</em>
+              <em className="text-terracotta">a little more special.</em>
             </h2>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+              Find something thoughtful, or let us create one just for you.
+            </p>
           </Reveal>
           <Reveal delay={220}>
             <div className="mt-8 flex flex-wrap justify-center gap-3.5">
               <Button href="/#collection" variant="dark">
-                Browse the Collection
+                Explore Collection
               </Button>
               <Button href="/#contact" variant="outline">
-                Get in Touch
+                Chat with Us
               </Button>
             </div>
           </Reveal>

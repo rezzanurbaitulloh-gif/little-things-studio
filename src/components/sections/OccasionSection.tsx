@@ -13,9 +13,9 @@ export function OccasionSection() {
             eyebrow="Shop by Moment"
             title={
               <>
-                Every occasion,
+                For every little
                 <br />
-                <em className="text-terracotta">covered.</em>
+                <em className="text-terracotta">and big moment.</em>
               </>
             }
           />

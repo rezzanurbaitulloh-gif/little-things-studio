@@ -211,7 +211,9 @@ body {
   .animate-marquee,
   .animate-spin-slow,
   .animate-float,
-  .img-swap {
+  .img-swap,
+  .modal-backdrop,
+  .modal-panel {
     animation: none !important;
   }
 }
@@ -223,6 +225,22 @@ body {
 }
 .img-swap {
   animation: img-swap 0.5s var(--ease-soft);
+}
+
+/* ── Modal entrance ──────────────────────────────────── */
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-backdrop {
+  animation: modal-backdrop-in 0.3s var(--ease-soft);
+}
+.modal-panel {
+  animation: modal-in 0.3s var(--ease-soft);
 }
 
 /* ── Misc ────────────────────────────────────────────── */

@@ -4,9 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Product } from "@/types/product";
 import { cn } from "@/lib/cn";
 import { availabilityLabels, formatIDR } from "@/lib/product-utils";
-import { buildOrderMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import { buildOrderMessage, buildWhatsAppUrl, isInstagramConfigured } from "@/lib/whatsapp";
+import { siteConfig } from "@/config/site";
 import { categories } from "@/data/categories";
-import { CloseIcon, WhatsAppIcon } from "@/components/ui/icons";
+import { CloseIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { ProductImageGallery } from "./ProductImageGallery";
 import { ProductOptions } from "./ProductOptions";
 
@@ -39,6 +40,12 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
   const price = size?.price ?? product.price;
   const categoryName =
     categories.find((c) => c.id === product.category)?.name ?? "Gift";
+
+  // FR-03: Instagram link when available — product-level URL first,
+  // then the site profile, but only when a real URL is configured.
+  const instagramUrl =
+    product.instagramUrl ??
+    (isInstagramConfigured() ? siteConfig.instagramUrl : null);
 
   const waUrl = useMemo(() => {
     const message = buildOrderMessage({
@@ -94,7 +101,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-cream lg:overflow-hidden lg:bg-forest/70 lg:backdrop-blur-sm"
+      className="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-cream lg:overflow-hidden lg:bg-forest/70 lg:backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-modal-title"
@@ -110,7 +117,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           ref={dialogRef}
           tabIndex={-1}
           className={cn(
-            "relative flex w-full flex-col bg-cream outline-none",
+            "modal-panel relative flex w-full flex-col bg-cream outline-none",
             "lg:grid lg:max-h-[88vh] lg:max-w-5xl lg:grid-cols-[1.05fr_1fr]",
             "lg:overflow-hidden lg:rounded-[2rem]",
             "lg:shadow-[0_40px_90px_-30px_rgb(38_43_38/0.55)]"
@@ -194,6 +201,18 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               <p className="mt-3 text-xs text-muted">
                 Pesanan dikonfirmasi lewat chat — pembayaran & pengiriman menyusul.
               </p>
+              {instagramUrl ? (
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Lihat ${product.name} di Instagram`}
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-terracotta underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
+                >
+                  <InstagramIcon className="h-3.5 w-3.5" />
+                  Lihat di Instagram
+                </a>
+              ) : null}
             </div>
           </div>
 

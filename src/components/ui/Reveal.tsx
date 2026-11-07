@@ -33,7 +33,8 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
+      // Legacy fallback — defer so the effect body stays render-free.
+      queueMicrotask(() => setVisible(true));
       return;
     }
     const observer = new IntersectionObserver(

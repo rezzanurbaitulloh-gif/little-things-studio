@@ -66,14 +66,17 @@ export function FeaturedGallery() {
             eyebrow="The Collection"
             title={
               <>
-                Wrapped with care,
+                Things made to
                 <br />
-                <em className="text-terracotta">made to be given.</em>
+                <em className="text-terracotta">make you smile.</em>
               </>
             }
-            description="Every piece is assembled by hand in small batches. Hover to peek — tap for sizes, colours and a gift card."
+            description="A little collection of thoughtful surprises."
           />
         </div>
+        <p className="mt-3 text-xs leading-relaxed text-muted">
+          Hover to peek — tap for sizes, colours and a gift card.
+        </p>
 
         {/* Category filter chips */}
         <div className="mt-10 -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 no-scrollbar sm:mx-0 sm:flex-wrap sm:px-0">

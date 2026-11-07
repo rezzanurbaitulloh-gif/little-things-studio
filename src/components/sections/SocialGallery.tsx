@@ -24,9 +24,9 @@ export function SocialGallery() {
             eyebrow="Studio Moments"
             title={
               <>
-                Little moments,
+                A little more
                 <br />
-                <em className="text-terracotta">captured.</em>
+                <em className="text-terracotta">from our world.</em>
               </>
             }
           />

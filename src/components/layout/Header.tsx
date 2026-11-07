@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
@@ -26,6 +26,7 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpenRef = useRef(false);
   const waReady = isWhatsAppConfigured();
   const igReady = isInstagramConfigured();
 
@@ -37,14 +38,17 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key === "Escape" && menuOpenRef.current) setMenuOpen(false);
     };
     document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
     document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
@@ -114,7 +118,7 @@ export function Header() {
               onClick={() => setMenuOpen(true)}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              aria-label="Open menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-forest/15 text-forest transition-colors hover:border-terracotta hover:text-terracotta lg:hidden"
             >
               <MenuIcon className="h-5 w-5" />
