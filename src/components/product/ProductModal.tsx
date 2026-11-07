@@ -101,7 +101,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
   return (
     <div
-      className="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-cream lg:overflow-hidden lg:bg-forest/70 lg:backdrop-blur-sm"
+      className="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-cream lg:overflow-hidden lg:bg-forest/70"
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-modal-title"
@@ -119,8 +119,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           className={cn(
             "modal-panel relative flex w-full flex-col bg-cream outline-none",
             "lg:grid lg:max-h-[88vh] lg:max-w-5xl lg:grid-cols-[1.05fr_1fr]",
-            "lg:overflow-hidden lg:rounded-[2rem]",
-            "lg:shadow-[0_40px_90px_-30px_rgb(38_43_38/0.55)]"
+            "lg:overflow-hidden lg:rounded-[2rem]"
           )}
         >
           {/* Gallery column */}
@@ -134,7 +133,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
           {/* Details column */}
           <div className="flex flex-col px-5 pb-9 pt-12 sm:px-8 lg:overflow-y-auto lg:py-10 lg:pl-10 lg:pr-8">
-            <p className="eyebrow text-terracotta">
+            <p className="eyebrow text-forest">
               {categoryName} <span aria-hidden="true">·</span> {product.code}
             </p>
             <h3 id="product-modal-title" className="display-3 mt-2 text-forest">
@@ -189,7 +188,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Lihat ${product.name} di Instagram`}
-                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-terracotta underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-forest underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
                   >
                     <InstagramIcon className="h-3.5 w-3.5" />
                     Lihat di Instagram
@@ -204,7 +203,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             type="button"
             onClick={onClose}
             aria-label={`Tutup detail ${product.name}`}
-            className="fixed right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-cream/95 text-forest shadow-lg transition-colors hover:bg-cream lg:absolute lg:right-5 lg:top-5"
+            className="fixed right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-cream/95 text-forest transition-colors hover:bg-cream lg:absolute lg:right-5 lg:top-5"
           >
             <CloseIcon className="h-5 w-5" />
           </button>

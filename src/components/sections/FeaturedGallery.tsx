@@ -1,188 +1,163 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ProductCard } from "@/components/product/ProductCard";
 import { ProductModal } from "@/components/product/ProductModal";
-import { categories } from "@/data/categories";
-import { occasions } from "@/data/occasions";
-import { products } from "@/data/products";
-import type { CategoryId, OccasionId, Product } from "@/types/product";
-import { cn } from "@/lib/cn";
-import { CloseIcon } from "@/components/ui/icons";
+import { getProduct } from "@/data/products";
+import type { Product } from "@/types/product";
 
-/**
- * Editorial asymmetric grid — spans pair up into full 12-col rows
- * (7+5, 4+8, 5+7, 6+6) so the layout stays composed at any filter result.
- * Row height is fixed on lg; mobile alternates portrait/landscape tiles.
- */
-const gridPattern = [
-  "aspect-[4/3] lg:col-span-7 lg:aspect-auto",
-  "aspect-[4/5] lg:col-span-5 lg:aspect-auto",
-  "aspect-[4/5] lg:col-span-4 lg:aspect-auto",
-  "aspect-[4/3] lg:col-span-8 lg:aspect-auto",
-  "aspect-[4/3] lg:col-span-5 lg:aspect-auto",
-  "aspect-[4/5] lg:col-span-7 lg:aspect-auto",
-  "aspect-[4/3] lg:col-span-6 lg:aspect-auto",
-  "aspect-[4/5] lg:col-span-6 lg:aspect-auto",
-];
+const featuredIds = [
+  "the-little-hamper",
+  "blooming-love",
+  "sweetest-surprise",
+  "little-celebration",
+] as const;
+
+const featuredAlts: Record<(typeof featuredIds)[number], string> = {
+  "the-little-hamper":
+    "The Little Hamper — keranjang hadiah berisi snack dan bunga, dibungkus kraft",
+  "blooming-love": "Bouquet rose yang dirangkai tangan dengan kertas khas studio",
+  "sweetest-surprise": "Gift box elegan berisi bunga dan snack dengan pita pilihan",
+  "little-celebration":
+    "Bouquet snack dari cokelat dan permen yang dirangkai seperti buket bunga",
+};
+
+const featured = featuredIds
+  .map((id) => getProduct(id))
+  .filter((p): p is Product => Boolean(p));
 
 export function FeaturedGallery() {
-  const [category, setCategory] = useState<CategoryId | "all">("all");
-  const [occasion, setOccasion] = useState<OccasionId | null>(null);
   const [selected, setSelected] = useState<Product | null>(null);
   const closeModal = useCallback(() => setSelected(null), []);
 
-  // Occasion tiles (independent server section) request a filter via event.
-  useEffect(() => {
-    const onSelectOccasion = (event: Event) => {
-      const detail = (event as CustomEvent<OccasionId>).detail;
-      if (detail) setOccasion(detail);
-    };
-    window.addEventListener("select-occasion", onSelectOccasion);
-    return () => window.removeEventListener("select-occasion", onSelectOccasion);
-  }, []);
+  const [tileA, ...companions] = featured;
 
-  const visible = useMemo(
-    () =>
-      products.filter(
-        (p) =>
-          (category === "all" || p.category === category) &&
-          (!occasion || p.occasions.includes(occasion))
-      ),
-    [category, occasion]
-  );
-
-  const occasionName = occasions.find((o) => o.id === occasion)?.name ?? null;
-  const filtersActive = category !== "all" || occasion !== null;
+  if (!tileA) return null;
 
   return (
-    <section id="collection" className="scroll-mt-24 bg-ivory py-20 sm:py-28">
+    <section id="collection" className="scroll-mt-24 bg-cream py-20 sm:py-28" aria-labelledby="collection-title">
       <Container>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="The Collection"
-            title={
-              <>
-                Things made to
-                <br />
-                <em className="text-terracotta">make you smile.</em>
-              </>
-            }
-            description="A little collection of thoughtful surprises."
-          />
-        </div>
-        <p className="mt-3 text-xs leading-relaxed text-muted">
-          Hover to peek — tap for sizes, colours and a gift card.
-        </p>
+        <Reveal delay={0}>
+          <p className="eyebrow flex items-center gap-2.5 text-forest">
+            <span aria-hidden="true" className="text-terracotta">✳</span> Koleksi Pilihan
+          </p>
+          <h2 id="collection-title" className="display-2 mt-4 text-balance text-forest">
+            Favorit dari{" "}
+            <span className="italic text-terracotta">meja kami.</span>
+          </h2>
+          <p className="mt-4 max-w-xl text-base leading-relaxed sm:text-lg text-muted">
+            Beberapa favorit kami dari katalog — tiap ukuran bisa disesuaikan
+            dengan momen dan anggaranmu.
+          </p>
+        </Reveal>
 
-        {/* Category filter chips */}
-        <div className="mt-10 -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 no-scrollbar sm:mx-0 sm:flex-wrap sm:px-0">
-          <button
-            type="button"
-            onClick={() => setCategory("all")}
-            aria-pressed={category === "all"}
-            className={cn(
-              "shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
-              category === "all"
-                ? "border-forest bg-forest text-cream"
-                : "border-line bg-cream text-forest hover:border-terracotta hover:text-terracotta"
-            )}
-          >
-            Semua <span className="opacity-60">{products.length}</span>
-          </button>
-          {categories.map((c) => {
-            const count = products.filter((p) => p.category === c.id).length;
-            const active = category === c.id;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setCategory(c.id)}
-                aria-pressed={active}
-                className={cn(
-                  "shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
-                  active
-                    ? "border-forest bg-forest text-cream"
-                    : "border-line bg-cream text-forest hover:border-terracotta hover:text-terracotta"
-                )}
-              >
-                {c.shortName} <span className="opacity-60">{count}</span>
-              </button>
-            );
-          })}
-        </div>
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-12 lg:mt-14">
+          {/* Tile A — large */}
+          <Reveal delay={80} className="sm:col-span-12 lg:col-span-7">
+            <ProductTile
+              product={tileA}
+              alt={featuredAlts[tileA.id as keyof typeof featuredAlts] ?? tileA.imageAlt}
+              figureClass="aspect-[4/5] sm:aspect-[3/2] lg:aspect-[4/5]"
+              rounded="rounded-[1.75rem]"
+              nameClass="font-display text-xl text-forest lg:text-2xl"
+              onOpen={setSelected}
+            />
+          </Reveal>
 
-        {/* Active occasion indicator */}
-        {occasionName ? (
-          <div className="mt-5 flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-butter-soft px-4 py-2 text-sm font-medium text-forest">
-              Untuk: {occasionName}
-              <button
-                type="button"
-                onClick={() => setOccasion(null)}
-                aria-label="Hapus filter acara"
-                className="flex h-5 w-5 items-center justify-center rounded-full text-forest/60 transition-colors hover:bg-forest/10 hover:text-forest"
-              >
-                <CloseIcon className="h-3 w-3" />
-              </button>
-            </span>
-          </div>
-        ) : null}
-
-        {/* Grid / empty state */}
-        {visible.length === 0 ? (
-          <div className="mt-10 rounded-[1.5rem] border border-line bg-cream p-10 text-center sm:p-14">
-            <p className="font-display text-2xl text-forest">Belum ada yang cocok.</p>
-            <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-muted">
-              Kombinasi filter ini belum punya produk — hapus salah satu filter,
-              atau minta kami buatkan yang custom.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setCategory("all");
-                setOccasion(null);
-              }}
-              className="btn btn-outline mt-6"
-            >
-              Reset filter
-            </button>
-          </div>
-        ) : (
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:auto-rows-[24rem] lg:grid-cols-12 lg:gap-6">
-            {visible.map((product, i) => (
-              <Reveal
-                key={product.id}
-                delay={(i % 4) * 90}
-                className={gridPattern[i % gridPattern.length]}
-              >
-                <ProductCard product={product} onOpen={setSelected} />
+          {/* Companions */}
+          <div className="grid grid-cols-1 gap-5 sm:col-span-12 sm:grid-cols-3 lg:col-span-5 lg:grid-cols-1">
+            {companions.map((product, index) => (
+              <Reveal key={product.id} delay={80 * (index + 1)}>
+                <ProductTile
+                  product={product}
+                  alt={featuredAlts[product.id as keyof typeof featuredAlts] ?? product.imageAlt}
+                  figureClass="aspect-[16/10]"
+                  rounded="rounded-[1.25rem]"
+                  nameClass="font-display text-lg text-forest sm:text-base lg:text-xl"
+                  compact
+                  onOpen={setSelected}
+                />
               </Reveal>
             ))}
           </div>
-        )}
+        </div>
 
-        {filtersActive && visible.length > 0 ? (
-          <p className="mt-6 text-center text-xs text-muted">
-            Menampilkan {visible.length} dari {products.length} produk —{" "}
-            <button
-              type="button"
-              onClick={() => {
-                setCategory("all");
-                setOccasion(null);
-              }}
-              className="font-medium text-terracotta underline underline-offset-2 hover:text-terracotta-deep"
+        <Reveal delay={200}>
+          <div className="mt-12 border-t border-line pt-6">
+            <Link
+              href="/#collection"
+              className="inline-flex items-center gap-2 text-forest underline-offset-4 transition-colors duration-300 ease-[var(--ease-soft)] hover:text-terracotta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
             >
-              reset filter
-            </button>
-          </p>
-        ) : null}
+              Lihat semua koleksi <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </Reveal>
       </Container>
 
       {selected ? <ProductModal product={selected} onClose={closeModal} /> : null}
     </section>
+  );
+}
+
+interface ProductTileProps {
+  product: Product;
+  alt: string;
+  figureClass: string;
+  rounded: string;
+  nameClass: string;
+  compact?: boolean;
+  onOpen: (product: Product) => void;
+}
+
+function ProductTile({
+  product,
+  alt,
+  figureClass,
+  rounded,
+  nameClass,
+  compact = false,
+  onOpen,
+}: ProductTileProps) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(product)}
+      aria-haspopup="dialog"
+      className="group block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+    >
+      <figure className={`relative overflow-hidden ${rounded} ${figureClass}`}>
+        <Image
+          src={product.images[0]}
+          alt={alt}
+          fill
+          loading="lazy"
+          sizes="(min-width: 1024px) 56vw, 92vw"
+          className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        />
+      </figure>
+      <div
+        className={
+          compact
+            ? "mt-3 flex items-start justify-between gap-3"
+            : "mt-4 flex items-start justify-between gap-4"
+        }
+      >
+        <div className="min-w-0">
+          <p className={`text-balance ${nameClass}`}>{product.name}</p>
+          <p className={`text-muted ${compact ? "text-xs" : "text-sm"}`}>
+            {product.priceLabel}
+          </p>
+        </div>
+        <span
+          aria-hidden="true"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-forest transition-colors duration-300 ease-[var(--ease-soft)] group-hover:border-terracotta group-hover:bg-terracotta group-hover:text-forest-deep"
+        >
+          ↗
+        </span>
+      </div>
+    </button>
   );
 }

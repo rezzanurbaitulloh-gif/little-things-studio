@@ -6,24 +6,20 @@ import { OccasionTile } from "./OccasionTile";
 
 export function OccasionSection() {
   return (
-    <section id="occasions" className="scroll-mt-24 bg-cream py-20 sm:py-28">
+    <section id="moments" className="scroll-mt-24 bg-cream py-20 sm:py-28">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            eyebrow="Shop by Moment"
+            eyebrow="Pilih momen"
             title={
               <>
-                For every little
+                Pilih momennya,{" "}
                 <br />
-                <em className="text-terracotta">and big moment.</em>
+                <em className="text-terracotta">kami siapkan sisanya.</em>
               </>
             }
+            description="Satu sentuhan — koleksi di bawah langsung tersaring untuknya."
           />
-          <Reveal delay={200}>
-            <p className="max-w-[16rem] text-sm leading-relaxed text-muted sm:pb-2 sm:text-right">
-              Tap satu momen — koleksi di bawah langsung tersaring untuknya.
-            </p>
-          </Reveal>
         </div>
 
         {/* Snap-scroll rail on mobile, even grid from sm up */}

@@ -26,26 +26,26 @@ export function CustomGiftSection() {
   const waUrl = buildWhatsAppUrl(buildCustomGiftMessage());
 
   return (
-    <section className="bg-forest py-20 text-cream sm:py-28" aria-label="Custom gifts">
+    <section id="custom-gifts" className="bg-forest py-20 text-cream sm:py-28" aria-label="Custom gifts">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
           {/* Copy */}
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="eyebrow flex items-center gap-2.5 text-butter">
-                <span aria-hidden="true">✳</span> Custom Gifts
+              <p className="eyebrow flex items-center gap-2.5 text-cream">
+                <span aria-hidden="true" className="text-terracotta">✳</span> Hadiah Kustom
               </p>
             </Reveal>
             <Reveal delay={120}>
-              <h2 className="display-2 mt-5 text-balance">
-                Your idea.
-                <br />
-                <em className="text-butter">Our little magic.</em>
+              <h2 className="display-2 mt-5 text-balance text-cream">
+                Ceritakan idemu,<br />
+                <em className="italic text-terracotta">kami rangkaikan.</em>
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-5 max-w-lg leading-relaxed text-cream/70">
-                Have something special in mind? Let&rsquo;s create it together.
+                Cerita momen dan anggaranmu — kami bantu wujudkan lewat percakapan
+                WhatsApp. Foto kondisi akhir selalu kami kirim sebelum barang berangkat.
               </p>
             </Reveal>
 
@@ -65,7 +65,7 @@ export function CustomGiftSection() {
                       {step.n}
                     </span>
                     <div>
-                      <p className="font-display text-lg">{step.title}</p>
+                      <p className="font-display text-lg text-cream">{step.title}</p>
                       <p className="mt-1 text-sm leading-relaxed text-cream/60">{step.text}</p>
                     </div>
                   </li>
@@ -83,7 +83,7 @@ export function CustomGiftSection() {
                     className="btn btn-primary"
                   >
                     <WhatsAppIcon className="h-4 w-4" />
-                    Create Your Custom Gift
+                    Buat Hadiah Kustom
                   </a>
                 </div>
               ) : null}
@@ -92,15 +92,11 @@ export function CustomGiftSection() {
 
           {/* Imagery */}
           <div className="relative lg:col-span-5">
-            <div
-              aria-hidden="true"
-              className="absolute -right-4 -top-4 hidden h-24 w-24 rounded-full border border-dashed border-butter/40 lg:block"
-            />
             <Reveal variant="clip" delay={200} className="relative">
               <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
                 <Image
                   src="/images/process/process-kraft.webp"
-                  alt="Rolls of kraft paper and wrapping supplies on the studio table"
+                  alt="Gulungan kertas kraft dan alat bungkus di atas meja kerja studio"
                   fill
                   sizes="(min-width: 1024px) 38vw, 90vw"
                   className="object-cover"
@@ -109,14 +105,14 @@ export function CustomGiftSection() {
             </Reveal>
             <Reveal
               delay={420}
-              className="absolute -bottom-6 left-5 flex items-center gap-3 rounded-2xl bg-cream px-5 py-4 text-forest shadow-[0_20px_40px_-20px_rgb(0_0_0/0.4)] sm:left-8"
+              className="absolute -bottom-6 left-5 flex items-center gap-3 rounded-2xl bg-cream px-5 py-4 text-forest sm:left-8"
             >
               <span aria-hidden="true" className="text-2xl text-terracotta">
                 ✳
               </span>
               <div>
                 <p className="font-display text-base leading-tight">Made-for-You Box</p>
-                <p className="text-xs text-muted">one idea, one box, no repeats</p>
+                <p className="text-xs text-cream/60">Satu ide, satu box, tidak ada yang sama.</p>
               </div>
             </Reveal>
           </div>

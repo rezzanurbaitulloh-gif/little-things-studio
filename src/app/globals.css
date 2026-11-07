@@ -21,22 +21,6 @@
 
   /* ── Motion ────────────────────────────────────────── */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-marquee: marquee 32s linear infinite;
-  --animate-spin-slow: spin-slow 16s linear infinite;
-  --animate-float: float 7s ease-in-out infinite;
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
 }
 
 /* ── Base ────────────────────────────────────────────── */
@@ -113,8 +97,7 @@ body {
 
 @utility btn-primary {
   background: var(--color-terracotta);
-  color: var(--color-cream);
-  box-shadow: 0 10px 24px -12px rgb(215 124 105 / 0.55);
+  color: var(--color-forest-deep);
 }
 
 @utility btn-dark {
@@ -208,9 +191,6 @@ body {
     clip-path: none !important;
     transition: none !important;
   }
-  .animate-marquee,
-  .animate-spin-slow,
-  .animate-float,
   .img-swap,
   .modal-backdrop,
   .modal-panel {

@@ -13,7 +13,7 @@ import {
 const footerNav = [
   { href: "/", label: "Beranda" },
   { href: "/#collection", label: "Koleksi" },
-  { href: "/#occasions", label: "Momen" },
+  { href: "/#moments", label: "Momen" },
   { href: "/#our-story", label: "Cerita Kami" },
   { href: "/#contact", label: "Kontak" },
 ];
@@ -29,8 +29,8 @@ export function Footer() {
         {/* Big closing statement */}
         <div className="flex flex-col gap-10 border-b border-cream/10 pb-12 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
-            <p className="eyebrow mb-4 flex items-center gap-2.5 text-butter">
-              <span aria-hidden="true">✳</span> {siteConfig.name}
+            <p className="eyebrow mb-4 text-cream/90 flex items-center gap-2.5">
+              <span aria-hidden="true" className="text-terracotta">✳</span> {siteConfig.name}
             </p>
             <p className="font-display text-[clamp(1.9rem,4vw,3rem)] leading-[1.1]">
               A little gift,
@@ -82,7 +82,7 @@ export function Footer() {
             </p>
           </div>
           <nav aria-label="Footer">
-            <p className="eyebrow mb-4 text-cream/50">Explore</p>
+            <p className="eyebrow mb-4 text-cream/50">Jelajahi</p>
             <ul className="space-y-2.5">
               {footerNav.map((link) => (
                 <li key={link.href}>
@@ -125,7 +125,7 @@ export function Footer() {
             © 2026 {siteConfig.name}. All rights reserved.
           </p>
           <p className="font-display text-sm italic text-cream/55">
-            made with care, wrapped with love
+            dirangkai dengan hati, dibungkus dengan rasa
           </p>
         </div>
       </Container>

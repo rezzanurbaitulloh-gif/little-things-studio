@@ -10,36 +10,37 @@ export function FinalCTA() {
           <Reveal>
             <span
               aria-hidden="true"
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-2xl text-cream"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-terracotta text-2xl text-forest-deep"
             >
               ✳
             </span>
           </Reveal>
           <Reveal delay={100}>
             <h2 className="display-2 mt-6 text-balance text-forest">
-              Make someone&rsquo;s day
-              <br />
-              <em className="text-terracotta">a little more special.</em>
+              Bikin hari seseorang<br />
+              <em className="italic text-terracotta">terasa lebih spesial.</em>
             </h2>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-              Find something thoughtful, or let us create one just for you.
+            <p className="mt-5 max-w-md text-base leading-relaxed text-forest">
+              Temukan yang sudah jadi di katalog, atau ceritakan idemu — kami bantu
+              wujudkan.
             </p>
           </Reveal>
           <Reveal delay={220}>
-            <div className="mt-8 flex flex-wrap justify-center gap-3.5">
-              <Button href="/#collection" variant="dark">
-                Explore Collection
+            <div className="mt-8 flex flex-wrap justify-center gap-3.5 sm:flex-nowrap">
+              <Button href="/#collection" variant="dark" className="w-full sm:w-auto">
+                Lihat Koleksi
               </Button>
-              <Button href="/#contact" variant="outline">
-                Chat with Us
+              <Button href="/#contact" variant="outline" className="w-full sm:w-auto">
+                Hubungi Kami
               </Button>
             </div>
           </Reveal>
           <Reveal delay={300}>
-            <p className="mt-6 text-xs text-muted">
-              Small-batch orders — makin early makin aman untuk tanggal spesial.
+            <p className="mt-6 text-sm text-forest/80">
+              Pesanan dirangkai per batch kecil — semakin cepat pesan, semakin aman
+              untuk tanggal spesialmu.
             </p>
           </Reveal>
         </div>

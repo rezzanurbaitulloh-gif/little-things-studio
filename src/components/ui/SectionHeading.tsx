@@ -35,7 +35,7 @@ export function SectionHeading({
         className={cn(
           "eyebrow mb-4 flex items-center gap-2.5",
           align === "center" && "justify-center",
-          light ? "text-butter" : "text-terracotta"
+          light ? "text-butter" : "text-forest"
         )}
       >
         <AsteriskMark className={cn("h-3 w-3", light ? "text-butter" : "text-terracotta")} />

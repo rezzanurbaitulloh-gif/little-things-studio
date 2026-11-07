@@ -1,11 +1,11 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { BrandIntro } from "@/components/sections/BrandIntro";
+import { CategoryNavigation } from "@/components/sections/CategoryNavigation";
 import { FeaturedGallery } from "@/components/sections/FeaturedGallery";
 import { OccasionSection } from "@/components/sections/OccasionSection";
 import { CustomGiftSection } from "@/components/sections/CustomGiftSection";
-import { BehindTheCraft } from "@/components/sections/BehindTheCraft";
+import { StorySection } from "@/components/sections/StorySection";
 import { SocialGallery } from "@/components/sections/SocialGallery";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
@@ -24,11 +24,11 @@ export default function Home() {
 
       <main id="main-content">
         <HeroSection />
-        <BrandIntro />
+        <CategoryNavigation />
         <FeaturedGallery />
         <OccasionSection />
         <CustomGiftSection />
-        <BehindTheCraft />
+        <StorySection />
         <SocialGallery />
         <FinalCTA />
       </main>

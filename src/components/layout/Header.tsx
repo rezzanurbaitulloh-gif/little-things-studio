@@ -19,7 +19,7 @@ import {
 const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/#collection", label: "Koleksi" },
-  { href: "/#occasions", label: "Momen" },
+  { href: "/#moments", label: "Momen" },
   { href: "/#our-story", label: "Cerita Kami" },
   { href: "/#contact", label: "Kontak" },
 ];
@@ -32,7 +32,7 @@ export function Header() {
   const igReady = isInstagramConfigured();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -58,10 +58,10 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-40 transition-all duration-500",
+          "fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-ivory",
           scrolled
-            ? "border-b border-line bg-ivory/90 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
+            ? "border-b border-line"
+            : "border-b border-transparent"
         )}
       >
         <div className="mx-auto flex h-[4.25rem] w-full max-w-[76rem] items-center justify-between px-5 sm:px-8 lg:px-10">
