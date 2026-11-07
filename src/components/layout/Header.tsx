@@ -17,10 +17,11 @@ import {
 } from "@/components/ui/icons";
 
 const navLinks = [
-  { href: "/#collection", label: "Collection" },
-  { href: "/#occasions", label: "Occasions" },
-  { href: "/#our-story", label: "Our Story" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/", label: "Beranda" },
+  { href: "/#collection", label: "Koleksi" },
+  { href: "/#occasions", label: "Momen" },
+  { href: "/#our-story", label: "Cerita Kami" },
+  { href: "/#contact", label: "Kontak" },
 ];
 
 export function Header() {
@@ -110,7 +111,7 @@ export function Header() {
                 className="btn btn-primary hidden h-10 min-h-10 px-5 text-sm sm:inline-flex"
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Chat with Us
+                Chat WhatsApp
               </a>
             ) : null}
             <button
@@ -183,7 +184,7 @@ export function Header() {
               className="btn btn-primary w-full"
             >
               <WhatsAppIcon className="h-4 w-4" />
-              Chat with Us
+              Chat WhatsApp
             </a>
           </div>
         ) : null}

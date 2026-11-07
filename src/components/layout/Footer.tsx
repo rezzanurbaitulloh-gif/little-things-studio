@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/icons";
 
 const footerNav = [
-  { href: "/#collection", label: "Collection" },
-  { href: "/#occasions", label: "Occasions" },
-  { href: "/#our-story", label: "Our Story" },
-  { href: "/#craft", label: "Behind the Craft" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/", label: "Beranda" },
+  { href: "/#collection", label: "Koleksi" },
+  { href: "/#occasions", label: "Momen" },
+  { href: "/#our-story", label: "Cerita Kami" },
+  { href: "/#contact", label: "Kontak" },
 ];
 
 export function Footer() {
