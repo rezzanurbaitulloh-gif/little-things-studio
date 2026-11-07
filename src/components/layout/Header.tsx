@@ -120,7 +120,7 @@ export function Header() {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-forest/15 text-forest transition-colors hover:border-terracotta hover:text-terracotta lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-forest/15 text-forest transition-colors hover:border-terracotta hover:text-terracotta lg:hidden"
             >
               <MenuIcon className="h-5 w-5" />
             </button>
@@ -148,7 +148,7 @@ export function Header() {
             type="button"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 transition-colors hover:border-cream"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 transition-colors hover:border-cream"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
