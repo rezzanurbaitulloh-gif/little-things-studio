@@ -15,7 +15,7 @@ export function getPriceLabel(product: Product): string {
 }
 
 export const availabilityLabels: Record<Product["availability"], string> = {
-  available: "Ready to order",
-  "made-to-order": "Made to order",
-  limited: "Limited stock",
+  available: "Tersedia",
+  "made-to-order": "Dibuat atas pesanan",
+  limited: "Stok terbatas",
 };

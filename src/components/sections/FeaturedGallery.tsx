@@ -1,163 +1,177 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/cn";
 import { ProductModal } from "@/components/product/ProductModal";
-import { getProduct } from "@/data/products";
+import { products } from "@/data/products";
+import { categories } from "@/data/categories";
+import { occasions } from "@/data/occasions";
 import type { Product } from "@/types/product";
+import { availabilityLabels } from "@/lib/product-utils";
+type FilterKind = "all" | "category" | "occasion";
 
-const featuredIds = [
-  "the-little-hamper",
-  "blooming-love",
-  "sweetest-surprise",
-  "little-celebration",
-] as const;
+interface FilterState {
+  kind: FilterKind;
+  id: string;
+  label: string;
+}
 
-const featuredAlts: Record<(typeof featuredIds)[number], string> = {
-  "the-little-hamper":
-    "The Little Hamper — keranjang hadiah berisi snack dan bunga, dibungkus kraft",
-  "blooming-love": "Bouquet rose yang dirangkai tangan dengan kertas khas studio",
-  "sweetest-surprise": "Gift box elegan berisi bunga dan snack dengan pita pilihan",
-  "little-celebration":
-    "Bouquet snack dari cokelat dan permen yang dirangkai seperti buket bunga",
-};
+const ALL: FilterState = { kind: "all", id: "all", label: "Semua Koleksi" };
 
-const featured = featuredIds
-  .map((id) => getProduct(id))
-  .filter((p): p is Product => Boolean(p));
+const filterOptions: FilterState[] = [
+  ALL,
+  ...categories.map((c): FilterState => ({
+    kind: "category",
+    id: c.id,
+    label: c.shortName,
+  })),
+];
 
 export function FeaturedGallery() {
+  const [filter, setFilter] = useState<FilterState>(ALL);
   const [selected, setSelected] = useState<Product | null>(null);
   const closeModal = useCallback(() => setSelected(null), []);
 
-  const [tileA, ...companions] = featured;
+  // Terima filter momen dari OccasionSection (tombol momen di section E).
+  useEffect(() => {
+    const onSelectOccasion = (event: CustomEvent<string>) => {
+      const occasionId = event.detail;
+      const occasion = occasions.find((o) => o.id === occasionId);
+      setFilter({
+        kind: "occasion",
+        id: occasionId,
+        label: occasion ? occasion.name : "Semua Koleksi",
+      });
+      const el = document.getElementById("collection");
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    window.addEventListener(
+      "select-occasion",
+      onSelectOccasion as unknown as EventListener
+    );
+    return () =>
+      window.removeEventListener(
+        "select-occasion",
+        onSelectOccasion as unknown as EventListener
+      );
+  }, []);
 
-  if (!tileA) return null;
+  const filtered = products.filter((p) => {
+    if (filter.kind === "all") return true;
+    if (filter.kind === "category") return p.category === filter.id;
+    return p.occasions.includes(filter.id as Product["occasions"][number]);
+  });
 
   return (
     <section id="collection" className="scroll-mt-24 bg-cream py-20 sm:py-28" aria-labelledby="collection-title">
       <Container>
         <Reveal delay={0}>
-          <p className="eyebrow flex items-center gap-2.5 text-forest">
-            <span aria-hidden="true" className="text-terracotta">✳</span> Koleksi Pilihan
-          </p>
-          <h2 id="collection-title" className="display-2 mt-4 text-balance text-forest">
-            Favorit dari{" "}
-            <span className="italic text-terracotta">meja kami.</span>
-          </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed sm:text-lg text-muted">
-            Beberapa favorit kami dari katalog — tiap ukuran bisa disesuaikan
-            dengan momen dan anggaranmu.
-          </p>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow flex items-center gap-2.5 text-forest">
+                <span aria-hidden="true" className="text-terracotta">✳</span>
+                Koleksi Pilihan
+              </p>
+              <h2 id="collection-title" className="display-2 mt-4 text-balance text-forest">
+                Semua Koleksi
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-relaxed sm:text-lg text-muted">
+                Lengkapi momenmu dengan rangkaian kami — saring sesuai kategori
+                atau momen yang kamu cari.
+              </p>
+            </div>
+            <div className="flex items-end gap-2 text-sm">
+              <span className="font-display text-lg text-forest">
+                {filtered.length} produk
+              </span>
+            </div>
+          </div>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-12 lg:mt-14">
-          {/* Tile A — large */}
-          <Reveal delay={80} className="sm:col-span-12 lg:col-span-7">
-            <ProductTile
-              product={tileA}
-              alt={featuredAlts[tileA.id as keyof typeof featuredAlts] ?? tileA.imageAlt}
-              figureClass="aspect-[4/5] sm:aspect-[3/2] lg:aspect-[4/5]"
-              rounded="rounded-[1.75rem]"
-              nameClass="font-display text-xl text-forest lg:text-2xl"
-              onOpen={setSelected}
-            />
-          </Reveal>
-
-          {/* Companions */}
-          <div className="grid grid-cols-1 gap-5 sm:col-span-12 sm:grid-cols-3 lg:col-span-5 lg:grid-cols-1">
-            {companions.map((product, index) => (
-              <Reveal key={product.id} delay={80 * (index + 1)}>
-                <ProductTile
-                  product={product}
-                  alt={featuredAlts[product.id as keyof typeof featuredAlts] ?? product.imageAlt}
-                  figureClass="aspect-[16/10]"
-                  rounded="rounded-[1.25rem]"
-                  nameClass="font-display text-lg text-forest sm:text-base lg:text-xl"
-                  compact
-                  onOpen={setSelected}
-                />
-              </Reveal>
-            ))}
+        {/* Filter chips */}
+        <Reveal delay={80}>
+          <div className="mt-10 flex flex-wrap gap-3 lg:mt-14">
+            {filterOptions.map((option) => {
+              const active = filter.kind === option.kind && filter.id === option.id;
+              return (
+                <button
+                  key={option.label}
+                  type="button"
+                  onClick={() => setFilter(option)}
+                  aria-pressed={active}
+                  className={cn(
+                    "rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
+                    active
+                      ? "border-forest bg-forest text-cream"
+                      : "border-line bg-cream text-forest hover:border-terracotta hover:text-terracotta"
+                  )}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
+        </Reveal>
+
+        {/* Product grid */}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+          {filtered.map((product) => (
+            <Reveal key={product.id} className="group block">
+              <button
+                type="button"
+                onClick={() => setSelected(product)}
+                aria-haspopup="dialog"
+                className="w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+              >
+                <figure className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line bg-cream">
+                  <Image
+                    src={product.images[0]}
+                    alt={product.imageAlt}
+                    fill
+                    loading="lazy"
+                    sizes="(min-width: 1024px) 30vw, 90vw"
+                    className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  />
+                </figure>
+                <div className="mt-4 flex flex-col gap-2">
+                  <p className="text-balance font-display text-lg text-forest">
+                    {product.name}
+                  </p>
+                  <p className="text-sm text-muted">{product.priceLabel}</p>
+                  <div className="flex items-center gap-2">
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "h-1.5 w-1.5 rounded-full",
+                        {
+                          available: "bg-sage",
+                          "made-to-order": "bg-butter",
+                          limited: "bg-terracotta",
+                        }[product.availability]
+                      )}
+                    />
+                    <span className="text-xs font-medium text-forest/70">
+                      {availabilityLabels[product.availability]}
+                    </span>
+                  </div>
+                </div>
+              </button>
+            </Reveal>
+          ))}
+          {filtered.length === 0 && (
+            <p className="mt-8 text-center text-muted">
+              Tidak ada produk yang cocok dengan filter tersebut.
+            </p>
+          )}
         </div>
 
-        <Reveal delay={200}>
-          <div className="mt-12 border-t border-line pt-6">
-            <Link
-              href="/#collection"
-              className="inline-flex items-center gap-2 text-forest underline-offset-4 transition-colors duration-300 ease-[var(--ease-soft)] hover:text-terracotta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
-            >
-              Lihat semua koleksi <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </Reveal>
+        {selected ? (
+          <ProductModal product={selected} onClose={closeModal} />
+        ) : null}
       </Container>
-
-      {selected ? <ProductModal product={selected} onClose={closeModal} /> : null}
     </section>
-  );
-}
-
-interface ProductTileProps {
-  product: Product;
-  alt: string;
-  figureClass: string;
-  rounded: string;
-  nameClass: string;
-  compact?: boolean;
-  onOpen: (product: Product) => void;
-}
-
-function ProductTile({
-  product,
-  alt,
-  figureClass,
-  rounded,
-  nameClass,
-  compact = false,
-  onOpen,
-}: ProductTileProps) {
-  return (
-    <button
-      type="button"
-      onClick={() => onOpen(product)}
-      aria-haspopup="dialog"
-      className="group block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
-    >
-      <figure className={`relative overflow-hidden ${rounded} ${figureClass}`}>
-        <Image
-          src={product.images[0]}
-          alt={alt}
-          fill
-          loading="lazy"
-          sizes="(min-width: 1024px) 56vw, 92vw"
-          className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-        />
-      </figure>
-      <div
-        className={
-          compact
-            ? "mt-3 flex items-start justify-between gap-3"
-            : "mt-4 flex items-start justify-between gap-4"
-        }
-      >
-        <div className="min-w-0">
-          <p className={`text-balance ${nameClass}`}>{product.name}</p>
-          <p className={`text-muted ${compact ? "text-xs" : "text-sm"}`}>
-            {product.priceLabel}
-          </p>
-        </div>
-        <span
-          aria-hidden="true"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-forest transition-colors duration-300 ease-[var(--ease-soft)] group-hover:border-terracotta group-hover:bg-terracotta group-hover:text-forest-deep"
-        >
-          ↗
-        </span>
-      </div>
-    </button>
   );
 }
