@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { isInstagramConfigured, isWhatsAppConfigured } from "@/lib/whatsapp";
+import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import {
   ArrowUpRightIcon,
@@ -20,6 +21,7 @@ const footerNav = [
 export function Footer() {
   const waReady = isWhatsAppConfigured();
   const igReady = isInstagramConfigured();
+  const hasVisit = Boolean(siteConfig.locationLabel || siteConfig.businessHours);
 
   return (
     <footer id="contact" className="bg-forest-deep text-cream">
@@ -47,12 +49,7 @@ export function Footer() {
                 <WhatsAppIcon className="h-4 w-4" />
                 Chat on WhatsApp
               </a>
-            ) : (
-              <span className="btn btn-light cursor-not-allowed opacity-60" aria-disabled="true">
-                <WhatsAppIcon className="h-4 w-4" />
-                WhatsApp — belum dikonfigurasi
-              </span>
-            )}
+            ) : null}
             {igReady ? (
               <a
                 href={siteConfig.instagramUrl}
@@ -61,22 +58,19 @@ export function Footer() {
                 className="btn btn-light"
               >
                 <InstagramIcon className="h-4 w-4" />
-                {siteConfig.instagramHandle}
+                {siteConfig.instagramHandle ?? "Instagram"}
               </a>
-            ) : (
-              <span
-                className="btn btn-light cursor-not-allowed opacity-60"
-                aria-disabled="true"
-              >
-                <InstagramIcon className="h-4 w-4" />
-                Instagram — belum dikonfigurasi
-              </span>
-            )}
+            ) : null}
           </div>
         </div>
 
         {/* Info columns */}
-        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={cn(
+            "grid gap-10 py-12 sm:grid-cols-2",
+            hasVisit ? "lg:grid-cols-3" : "lg:grid-cols-2"
+          )}
+        >
           <div>
             <span className="flex items-center gap-2.5">
               <LogoMark className="h-8 w-8 text-terracotta" />
@@ -103,24 +97,27 @@ export function Footer() {
               ))}
             </ul>
           </nav>
-          <div>
-            <p className="eyebrow mb-4 text-cream/50">Visit</p>
-            <p className="text-sm leading-relaxed text-cream/80">
-              {siteConfig.locationLabel}
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-cream/80">
-              {siteConfig.businessHours}
-            </p>
-          </div>
-          <div>
-            <p className="eyebrow mb-4 text-cream/50">Good to know</p>
-            <p className="text-sm leading-relaxed text-cream/60">
-              {siteConfig.demoNotice}
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-cream/60">
-              Product photography uses licensed stock imagery for this demo.
-            </p>
-          </div>
+          {hasVisit ? (
+            <div>
+              <p className="eyebrow mb-4 text-cream/50">Visit</p>
+              {siteConfig.locationLabel ? (
+                <p className="text-sm leading-relaxed text-cream/80">
+                  {siteConfig.locationLabel}
+                </p>
+              ) : null}
+              {siteConfig.businessHours ? (
+                <p
+                  className={
+                    siteConfig.locationLabel
+                      ? "mt-3 text-sm leading-relaxed text-cream/80"
+                      : "text-sm leading-relaxed text-cream/80"
+                  }
+                >
+                  {siteConfig.businessHours}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row">

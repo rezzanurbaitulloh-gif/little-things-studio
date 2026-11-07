@@ -169,8 +169,8 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             />
 
             {/* Order CTA */}
-            <div className="mt-8">
-              {waUrl ? (
+            {waUrl ? (
+              <div className="mt-8">
                 <a
                   href={waUrl}
                   target="_blank"
@@ -180,40 +180,23 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   <WhatsAppIcon className="h-4 w-4" />
                   Pesan via WhatsApp
                 </a>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    className="btn btn-primary w-full"
+                <p className="mt-3 text-xs text-muted">
+                  Pesanan dikonfirmasi lewat chat — pembayaran & pengiriman menyusul.
+                </p>
+                {instagramUrl ? (
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Lihat ${product.name} di Instagram`}
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-terracotta underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
                   >
-                    <WhatsAppIcon className="h-4 w-4" />
-                    Pesan via WhatsApp
-                  </button>
-                  <p className="mt-3 text-xs leading-relaxed text-muted">
-                    Demo — nomor WhatsApp belum dikonfigurasi, jadi tombol ini
-                    dinonaktifkan. Pesanan akan tersusun otomatis begitu nomor
-                    diisi.
-                  </p>
-                </>
-              )}
-              <p className="mt-3 text-xs text-muted">
-                Pesanan dikonfirmasi lewat chat — pembayaran & pengiriman menyusul.
-              </p>
-              {instagramUrl ? (
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Lihat ${product.name} di Instagram`}
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-terracotta underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
-                >
-                  <InstagramIcon className="h-3.5 w-3.5" />
-                  Lihat di Instagram
-                </a>
-              ) : null}
-            </div>
+                    <InstagramIcon className="h-3.5 w-3.5" />
+                    Lihat di Instagram
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
           {/* Close — fixed on mobile (stays visible while scrolling), absolute on desktop */}

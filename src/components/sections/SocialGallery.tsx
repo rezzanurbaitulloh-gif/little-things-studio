@@ -91,19 +91,12 @@ export function SocialGallery() {
                     {frame}
                   </a>
                 ) : (
-                  <div title="Tautan Instagram belum dikonfigurasi">{frame}</div>
+                  frame
                 )}
               </Reveal>
             );
           })}
         </div>
-
-        {!igReady ? (
-          <p className="mt-6 text-xs leading-relaxed text-muted">
-            Demo — tautan Instagram belum dikonfigurasi, jadi foto ditampilkan
-            sebagai galeri statis tanpa tautan keluar.
-          </p>
-        ) : null}
       </Container>
     </section>
   );

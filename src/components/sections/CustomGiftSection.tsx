@@ -18,7 +18,7 @@ const steps = [
   {
     n: "03",
     title: "Budget-nya",
-    text: "Mulai Rp350.000 — kami susun yang paling berkesan di dalamnya.",
+    text: "Bahas rentang budget yang nyaman — kami usulkan konsep yang paling berkesan di dalamnya.",
   },
 ];
 
@@ -74,8 +74,8 @@ export function CustomGiftSection() {
             </Reveal>
 
             <Reveal delay={380}>
-              <div className="mt-9">
-                {waUrl ? (
+              {waUrl ? (
+                <div className="mt-9">
                   <a
                     href={waUrl}
                     target="_blank"
@@ -85,22 +85,8 @@ export function CustomGiftSection() {
                     <WhatsAppIcon className="h-4 w-4" />
                     Create Your Custom Gift
                   </a>
-                ) : (
-                  <>
-                    <span
-                      className="btn btn-primary cursor-not-allowed opacity-60"
-                      aria-disabled="true"
-                    >
-                      <WhatsAppIcon className="h-4 w-4" />
-                      Create Your Custom Gift
-                    </span>
-                    <p className="mt-3 max-w-md text-xs leading-relaxed text-cream/55">
-                      Demo — nomor WhatsApp belum dikonfigurasi. Tombol ini
-                      aktif otomatis begitu nomor diisi di konfigurasi situs.
-                    </p>
-                  </>
-                )}
-              </div>
+                </div>
+              ) : null}
             </Reveal>
           </div>
 

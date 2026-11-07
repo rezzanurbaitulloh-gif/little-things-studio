@@ -174,8 +174,8 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="px-8 pb-10">
-          {waReady ? (
+        {waReady ? (
+          <div className="px-8 pb-10">
             <a
               href={`https://wa.me/${siteConfig.whatsappNumber.replace(/\D/g, "")}`}
               target="_blank"
@@ -185,12 +185,8 @@ export function Header() {
               <WhatsAppIcon className="h-4 w-4" />
               Chat with Us
             </a>
-          ) : (
-            <p className="text-sm text-cream/60">
-              WhatsApp & Instagram contact will appear here once configured.
-            </p>
-          )}
-        </div>
+          </div>
+        ) : null}
       </div>
     </>
   );
