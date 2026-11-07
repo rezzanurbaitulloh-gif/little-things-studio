@@ -19,17 +19,13 @@ interface ProductOptionsProps {
 }
 
 const chipBase =
-  "rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200";
-const chipIdle = "border-line bg-cream text-forest hover:border-terracotta hover:text-terracotta";
-const chipActive = "border-forest bg-forest text-cream";
+  "border border-solid border-[rgba(34,35,31,0.12)] px-4 py-2 text-sm font-medium transition-colors duration-200";
+const chipIdle = "bg-transparent text-ink-black hover:border-tomato-red hover:text-tomato-red";
+const chipActive = "border-ink-black bg-ink-black text-warm-paper";
 
 const textareaClass =
-  "w-full resize-none rounded-xl border border-line bg-ivory px-4 py-3 text-sm text-forest placeholder:text-muted/70 transition-colors focus:border-terracotta focus:outline-none";
+  "w-full resize-none border border-solid border-[rgba(34,35,31,0.12)] px-4 py-3 text-sm text-ink-black placeholder:text-ink-black/40 transition-colors focus:border-tomato-red focus:outline-none";
 
-/**
- * Size / color pickers plus gift-message and custom-note inputs.
- * All state is lifted to the modal so the WhatsApp message stays in sync.
- */
 export function ProductOptions({
   product,
   sizeIndex,
@@ -42,18 +38,14 @@ export function ProductOptions({
   onNoteChange,
 }: ProductOptionsProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Sizes */}
       {product.sizes.length > 0 ? (
         <div>
-          <p className="eyebrow mb-2.5 text-forest" id="option-size-label">
+          <p className="eyebrow mb-4 text-ink-black" id="option-size-label">
             Ukuran
           </p>
-          <div
-            role="radiogroup"
-            aria-labelledby="option-size-label"
-            className="flex flex-wrap gap-2"
-          >
+          <div role="radiogroup" aria-labelledby="option-size-label" className="flex flex-wrap gap-3">
             {product.sizes.map((size, i) => (
               <button
                 key={size.label}
@@ -64,7 +56,7 @@ export function ProductOptions({
                 className={cn(chipBase, i === sizeIndex ? chipActive : chipIdle)}
               >
                 {size.label}
-                <span className={cn("ml-1.5", i === sizeIndex ? "text-cream/70" : "text-muted")}>
+                <span className={cn("ml-2", i === sizeIndex ? "text-warm-paper/90" : "text-ink-black/60")}>
                   {formatIDR(size.price)}
                 </span>
               </button>
@@ -76,14 +68,10 @@ export function ProductOptions({
       {/* Colors */}
       {product.colors.length > 0 ? (
         <div>
-          <p className="eyebrow mb-2.5 text-forest" id="option-color-label">
+          <p className="eyebrow mb-4 text-ink-black" id="option-color-label">
             Warna
           </p>
-          <div
-            role="radiogroup"
-            aria-labelledby="option-color-label"
-            className="flex flex-wrap gap-2"
-          >
+          <div role="radiogroup" aria-labelledby="option-color-label" className="flex flex-wrap gap-3">
             {product.colors.map((c) => (
               <button
                 key={c}
@@ -103,9 +91,9 @@ export function ProductOptions({
       {/* Gift message */}
       {product.supportsGiftMessage ? (
         <label className="block">
-          <span className="eyebrow mb-2.5 flex items-center justify-between text-forest">
+          <span className="eyebrow mb-4 flex items-center justify-between text-ink-black">
             Kartu Ucapan
-            <span className="font-sans text-[0.6875rem] font-medium normal-case tracking-normal text-muted">
+            <span className="font-body text-sm font-medium text-ink-black/50 normal-case tracking-normal">
               {giftMessage.length}/{GIFT_MESSAGE_MAX}
             </span>
           </span>
@@ -123,7 +111,7 @@ export function ProductOptions({
       {/* Custom note */}
       {product.supportsCustomNote ? (
         <label className="block">
-          <span className="eyebrow mb-2.5 block text-forest">Catatan untuk Kami</span>
+          <span className="eyebrow mb-4 block text-ink-black">Catatan untuk Kami</span>
           <textarea
             value={note}
             onChange={(e) => onNoteChange(e.target.value)}

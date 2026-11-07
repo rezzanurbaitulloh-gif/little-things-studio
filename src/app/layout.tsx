@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { Archivo, Instrument_Serif } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const display = DM_Serif_Display({
+const display = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
-  variable: "--font-dm-serif",
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
-const sans = DM_Sans({
+const body = Archivo({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4efe6",
+  themeColor: "#f0ede5",
   width: "device-width",
   initialScale: 1,
 };
@@ -65,8 +66,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={`${display.variable} ${sans.variable}`}>
-      <body className="bg-ivory text-forest antialiased">{children}</body>
+    <html lang="id" className={`${display.variable} ${body.variable}`}>
+      <body className="bg-warm-paper text-ink-black antialiased">{children}</body>
     </html>
   );
 }

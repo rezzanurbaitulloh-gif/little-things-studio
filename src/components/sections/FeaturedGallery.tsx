@@ -10,6 +10,7 @@ import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { occasions } from "@/data/occasions";
 import type { Product } from "@/types/product";
+import { formatIDR } from "@/lib/product-utils";
 import { availabilityLabels } from "@/lib/product-utils";
 import { cn } from "@/lib/cn";
 
@@ -21,7 +22,7 @@ interface FilterState {
   label: string;
 }
 
-const ALL: FilterState = { kind: "all", id: "all", label: "Semua Koleksi" };
+const ALL: FilterState = { kind: "all", id: "all", label: "Semua" };
 
 const filterOptions: FilterState[] = [
   ALL,
@@ -44,7 +45,7 @@ export function FeaturedGallery() {
       setFilter({
         kind: "occasion",
         id: occasionId,
-        label: occasion ? occasion.name : "Semua Koleksi",
+        label: occasion ? occasion.name : "Semua",
       });
       const el = document.getElementById("collection");
       el?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -66,29 +67,30 @@ export function FeaturedGallery() {
     return p.occasions.includes(filter.id as Product["occasions"][number]);
   });
 
-  // Editorial: Tile A (The Little Hamper) besar + 3 pendamping.
-  const [tileA, ...companions] = filtered;
-
   return (
-    <section id="collection" className="scroll-mt-24 bg-cream py-20 sm:py-28" aria-labelledby="collection-title">
+    <section
+      id="collection"
+      className="scroll-mt-20 bg-warm-paper py-20 sm:py-28"
+      aria-labelledby="collection-title"
+    >
       <Container>
         <Reveal delay={0}>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="eyebrow flex items-center gap-2.5 text-forest">
-                <span aria-hidden="true" className="text-terracotta">✳</span>
-                Koleksi Pilihan
+              <p className="eyebrow flex items-center gap-2 text-tomato-red">
+                <span aria-hidden="true" className="text-ink-black">✳</span>
+                Koleksi
               </p>
-              <h2 id="collection-title" className="display-2 mt-4 text-balance text-forest">
-                Semua Koleksi
+              <h2 id="collection-title" className="display-2 mt-4 text-balance text-ink-black">
+                Koleksi Pilihan
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-relaxed sm:text-lg text-muted">
-                Lengkapi momenmu dengan rangkaian kami — saring sesuai kategori
-                atau momen yang kamu cari.
+              <p className="body-md mt-4 max-w-[32rem] text-ink-black/70 leading-relaxed">
+                Setiap rangkaian dibuat satu per satu. Pilih yang paling
+                sesuai momenmu.
               </p>
             </div>
             <div className="flex items-end gap-2 text-sm">
-              <span className="font-display text-lg text-forest">
+              <span className="font-display text-lg text-ink-black">
                 {filtered.length} produk
               </span>
             </div>
@@ -97,7 +99,7 @@ export function FeaturedGallery() {
 
         {/* Filter chips */}
         <Reveal delay={80}>
-          <div className="mt-10 flex flex-wrap gap-3 lg:mt-14">
+          <div className="mt-12 flex flex-wrap gap-3 lg:mt-16">
             {filterOptions.map((option) => {
               const active = filter.kind === option.kind && filter.id === option.id;
               return (
@@ -107,10 +109,10 @@ export function FeaturedGallery() {
                   onClick={() => setFilter(option)}
                   aria-pressed={active}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
+                    "rounded-none border border-solid border-[rgba(34,35,31,0.12)] px-4 py-2 text-sm font-medium transition-colors duration-200",
                     active
-                      ? "border-forest bg-forest text-cream"
-                      : "border-line bg-cream text-forest hover:border-terracotta hover:text-terracotta"
+                      ? "border-ink-black bg-ink-black text-warm-paper"
+                      : "border-[rgba(34,35,31,0.12)] bg-transparent text-ink-black hover:border-tomato-red hover:text-tomato-red"
                   )}
                 >
                   {option.label}
@@ -120,39 +122,45 @@ export function FeaturedGallery() {
           </div>
         </Reveal>
 
-        {/* Editorial grid: 1 besar (kiri) + 3 pendamping (kanan) */}
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-5 lg:mt-14">
-          {tileA ? (
+        {/* Asymmetric editorial grid */}
+        <div className="mt-16 grid grid-cols-1 gap-8 lg:mt-20 lg:grid-cols-12 lg:gap-8">
+          {/* Large product - left */}
+          {filtered[0] ? (
             <Reveal
               delay={80}
               className="col-span-1 sm:col-span-12 lg:col-span-7"
             >
               <ProductTile
-                product={tileA}
+                product={filtered[0]}
                 large
                 onOpen={setSelected}
               />
             </Reveal>
           ) : null}
-          {companions.map((product, index) => (
-            <Reveal
-              key={product.id}
-              delay={80 * (index + 1)}
-              className="col-span-1 sm:col-span-12 lg:col-span-5 lg:grid-cols-1 lg:grid-row-[span_2]"
-            >
-              <ProductTile product={product} onOpen={setSelected} />
-            </Reveal>
-          ))}
+
+          {/* Medium products - right column */}
+          <div className="col-span-1 sm:col-span-12 lg:col-span-5 lg:grid-cols-1 lg:gap-8">
+            {filtered.slice(1, 4).map((product, index) => (
+              <Reveal
+                key={product.id}
+                delay={80 * (index + 1)}
+                className="col-span-1 sm:col-span-12"
+              >
+                <ProductTile product={product} onOpen={setSelected} />
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         {/* Footer link */}
         <Reveal delay={200}>
-          <div className="mt-12 border-t border-line pt-6 lg:mt-16">
+          <div className="mt-16 border-t border-solid border-[rgba(34,35,31,0.12)] pt-8 lg:mt-20">
             <Link
               href="/#collection"
-              className="inline-flex items-center gap-2 text-forest underline-offset-4 transition-colors duration-300 ease-[var(--ease-soft)] hover:text-terracotta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+              className="inline-flex items-center gap-2 text-ink-black transition-colors hover:text-tomato-red focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tomato-red"
             >
-              Lihat semua koleksi <span aria-hidden="true">→</span>
+              Lihat semua koleksi
+              <span aria-hidden="true" className="text-tomato-red">→</span>
             </Link>
           </div>
         </Reveal>
@@ -171,22 +179,24 @@ interface ProductTileProps {
   onOpen: (product: Product) => void;
 }
 
-function ProductTile({
-  product,
-  large = false,
-  onOpen,
-}: ProductTileProps) {
+function ProductTile({ product, large = false, onOpen }: ProductTileProps) {
+  const availabilityDot: Record<Product["availability"], string> = {
+    available: "bg-tomato-red",
+    "made-to-order": "bg-soft-marigold",
+    limited: "bg-ink-black",
+  };
+
   return (
     <button
       type="button"
       onClick={() => onOpen(product)}
       aria-haspopup="dialog"
-      className="group block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+      className="group block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tomato-red"
     >
       <figure
         className={cn(
-          "relative overflow-hidden border border-line bg-cream rounded-[1.75rem]",
-          large ? "aspect-[4/5]" : "aspect-[16/10]"
+          "relative overflow-hidden border border-solid border-[rgba(34,35,31,0.12)]",
+          large ? "aspect-[4/5] rounded-none" : "aspect-[16/10] rounded-none"
         )}
       >
         <Image
@@ -195,39 +205,42 @@ function ProductTile({
           fill
           loading="lazy"
           sizes="(min-width: 1024px) 30vw, 90vw"
-          className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          className="object-cover transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </figure>
-      <div className="mt-4 flex flex-col gap-2">
-        <p className={cn("text-balance font-display text-forest", large ? "text-xl lg:text-2xl" : "text-lg")}>
-          {product.name}
-        </p>
-        <p className="text-sm text-muted">{product.priceLabel}</p>
+      <div className="mt-6 flex flex-col gap-2">
         <div className="flex items-center gap-2">
+          <span
+            className="font-display text-xs text-ink-black/50 tracking-tight"
+          >
+            {product.code}
+          </span>
           <span
             aria-hidden="true"
             className={cn(
-              "h-1.5 w-1.5 rounded-full",
-              {
-                available: "bg-sage",
-                "made-to-order": "bg-butter",
-                limited: "bg-terracotta",
-              }[product.availability]
+              "h-1.5 w-1.5 rounded-none",
+              availabilityDot[product.availability]
             )}
           />
-          <span className="text-xs font-medium text-forest/70">
+          <span
+            className="text-xs font-medium text-ink-black/50 uppercase tracking-wider"
+          >
             {availabilityLabels[product.availability]}
           </span>
         </div>
+        <p className={cn("text-balance font-display text-lg text-ink-black", large ? "text-xl lg:text-2xl" : "text-lg")}>
+          {product.name}
+        </p>
+        <p className="body-sm text-ink-black">{formatIDR(product.price)}</p>
       </div>
       <span
         aria-hidden="true"
         className={cn(
-          "absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-line text-forest transition-colors duration-300 ease-[var(--ease-soft)] group-hover:border-terracotta group-hover:bg-terracotta group-hover:text-forest-deep",
-          large ? "mt-4 lg:mt-0" : "mt-4"
+          "absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-solid border-[rgba(34,35,31,0.12)] text-ink-black transition-colors duration-300 ease-[var(--ease-soft)] group-hover:border-tomato-red group-hover:bg-tomato-red group-hover:text-warm-paper",
+          large ? "mt-6 lg:mt-0" : "mt-6"
         )}
       >
-        ↗
+        →
       </span>
     </button>
   );

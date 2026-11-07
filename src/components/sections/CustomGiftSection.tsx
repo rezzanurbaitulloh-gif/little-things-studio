@@ -1,119 +1,67 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { WhatsAppIcon } from "@/components/ui/icons";
 import { buildCustomGiftMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
-
-const steps = [
-  {
-    n: "01",
-    title: "Siapa yang terima",
-    text: "Ceritakan orangnya — hobinya, selera warnanya, hal kecil yang dia suka.",
-  },
-  {
-    n: "02",
-    title: "Cerita & momennya",
-    text: "Ulang tahun, permintaan maaf, atau rayakan kecil tanpa alasan besar.",
-  },
-  {
-    n: "03",
-    title: "Budget-nya",
-    text: "Bahas rentang budget yang nyaman — kami usulkan konsep yang paling berkesan di dalamnya.",
-  },
-];
+import { WhatsAppIcon } from "@/components/ui/icons";
 
 export function CustomGiftSection() {
   const waUrl = buildWhatsAppUrl(buildCustomGiftMessage());
 
   return (
-    <section id="custom-gifts" className="bg-forest py-20 text-cream sm:py-28" aria-label="Custom gifts">
+    <section
+      id="custom-gifts"
+      className="scroll-mt-20 bg-ink-black text-warm-paper py-20 sm:py-28"
+      aria-label="Custom order"
+    >
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Copy */}
-          <div className="lg:col-span-7">
-            <Reveal>
-              <p className="eyebrow flex items-center gap-2.5 text-cream">
-                <span aria-hidden="true" className="text-terracotta">✳</span> Hadiah Kustom
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
+          {/* Copy — left */}
+          <div className="lg:col-span-6">
+            <Reveal delay={0}>
+              <p className="eyebrow flex items-center gap-2 text-soft-marigold">
+                <span aria-hidden="true" className="text-warm-paper">✳</span>
+                Custom Order
               </p>
             </Reveal>
-            <Reveal delay={120}>
-              <h2 className="display-2 mt-5 text-balance text-cream">
-                Ceritakan idemu,<br />
-                <em className="italic text-terracotta">kami rangkaikan.</em>
+            <Reveal delay={100}>
+              <h2 className="display-2 mt-4 text-balance text-warm-paper">
+                Make it personal.
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-5 max-w-lg leading-relaxed text-cream">
-                Cerita momen dan anggaranmu — kami bantu wujudkan lewat percakapan
-                WhatsApp. Foto kondisi akhir selalu kami kirim sebelum barang berangkat.
+              <p className="body-lg mt-6 max-w-[28rem] text-warm-paper/80 leading-relaxed">
+                Ceritakan momen, orang yang ingin kamu beri hadiah, dan budget
+                yang kamu siapkan. Kami bantu wujudkan.
               </p>
             </Reveal>
-
-            <Reveal delay={280}>
-              <ol className="mt-9 max-w-lg">
-                {steps.map((step, i) => (
-                  <li
-                    key={step.n}
-                    className={`flex items-start gap-5 py-4 ${
-                      i > 0 ? "border-t border-cream/10" : ""
-                    }`}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="font-display text-xl leading-none text-butter/80"
-                    >
-                      {step.n}
-                    </span>
-                    <div>
-                      <p className="font-display text-lg text-cream">{step.title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-cream/90">{step.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-
-            <Reveal delay={380}>
+            <Reveal delay={300}>
               {waUrl ? (
-                <div className="mt-9">
-                  <a
-                    href={waUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary"
-                  >
-                    <WhatsAppIcon className="h-4 w-4" />
-                    Buat Hadiah Kustom
-                  </a>
-                </div>
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-tomato-red font-medium text-lg transition-colors hover:text-soft-marigold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-soft-marigold"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                  Discuss Your Gift
+                  <span className="text-soft-marigold">→</span>
+                </a>
               ) : null}
             </Reveal>
           </div>
 
-          {/* Imagery */}
-          <div className="relative lg:col-span-5">
-            <Reveal variant="clip" delay={200} className="relative">
-              <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
+          {/* Photo — right */}
+          <div className="lg:col-span-6 flex justify-center">
+            <Reveal variant="clip" delay={150} className="relative">
+              <figure className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src="/images/process/process-kraft.webp"
-                  alt="Gulungan kertas kraft dan alat bungkus di atas meja kerja studio"
+                  alt="Kertas kraft dan alat bungkus di atas meja kerja studio"
                   fill
-                  sizes="(min-width: 1024px) 38vw, 90vw"
+                  sizes="(min-width: 1024px) 40vw, 92vw"
                   className="object-cover"
                 />
               </figure>
-            </Reveal>
-            <Reveal
-              delay={420}
-              className="absolute -bottom-6 left-5 flex items-center gap-3 rounded-2xl bg-cream px-5 py-4 text-forest sm:left-8"
-            >
-              <span aria-hidden="true" className="text-2xl text-terracotta">
-                ✳
-              </span>
-              <div>
-                <p className="font-display text-base leading-tight">Box Untukmu</p>
-                <p className="text-xs text-forest">Satu ide, satu box, tidak ada yang sama.</p>
-              </div>
             </Reveal>
           </div>
         </div>

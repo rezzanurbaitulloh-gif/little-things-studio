@@ -17,18 +17,11 @@ interface ProductModalProps {
 }
 
 const availabilityDot: Record<Product["availability"], string> = {
-  available: "bg-sage",
-  "made-to-order": "bg-butter",
-  limited: "bg-terracotta",
+  available: "bg-tomato-red",
+  "made-to-order": "bg-soft-marigold",
+  limited: "bg-ink-black",
 };
 
-/**
- * Product detail modal.
- * - Desktop: centered two-column dialog (gallery left, scrollable details right).
- * - Mobile: full-screen sheet (image on top, details below, page scrolls inside).
- * - A11y: role=dialog + aria-modal, focus trapped inside, ESC / backdrop close,
- *   focus restored to the trigger on unmount, body scroll locked.
- */
 export function ProductModal({ product, onClose }: ProductModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const [sizeIndex, setSizeIndex] = useState(0);
@@ -41,8 +34,6 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
   const categoryName =
     categories.find((c) => c.id === product.category)?.name ?? "Gift";
 
-  // FR-03: Instagram link when available — product-level URL first,
-  // then the site profile, but only when a real URL is configured.
   const instagramUrl =
     product.instagramUrl ??
     (isInstagramConfigured() ? siteConfig.instagramUrl : null);
@@ -59,7 +50,6 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
     return buildWhatsAppUrl(message);
   }, [product, size, color, giftMessage, note]);
 
-  // Scroll lock, initial focus, ESC close, and Tab focus trap.
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     const dialog = dialogRef.current;
@@ -101,12 +91,11 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
   return (
     <div
-      className="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-cream lg:overflow-hidden lg:bg-forest/70"
+      className="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-warm-paper lg:overflow-hidden lg:bg-[rgba(34,35,31,0.6)]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-modal-title"
     >
-      {/* Centering wrapper — its padding doubles as the desktop backdrop */}
       <div
         className="flex min-h-full items-stretch justify-center lg:items-center lg:p-6"
         onClick={(event) => {
@@ -117,12 +106,11 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           ref={dialogRef}
           tabIndex={-1}
           className={cn(
-            "modal-panel relative flex w-full flex-col bg-cream outline-none",
-            "lg:grid lg:max-h-[88vh] lg:max-w-5xl lg:grid-cols-[1.05fr_1fr]",
-            "lg:overflow-hidden lg:rounded-[2rem]"
+            "modal-panel relative flex w-full flex-col bg-warm-paper outline-none",
+            "lg:grid lg:max-h-[88vh] lg:max-w-[80rem] lg:grid-cols-[1.15fr_1fr]",
+            "lg:overflow-hidden lg:rounded-none"
           )}
         >
-          {/* Gallery column */}
           <div className="lg:h-full lg:min-h-0">
             <ProductImageGallery
               images={product.images}
@@ -131,29 +119,32 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             />
           </div>
 
-          {/* Details column */}
-          <div className="flex flex-col px-5 pb-9 pt-12 sm:px-8 lg:overflow-y-auto lg:py-10 lg:pl-10 lg:pr-8">
-            <p className="eyebrow text-forest">
+          <div className="flex flex-col px-5 pb-12 pt-14 sm:px-8 lg:overflow-y-auto lg:py-14 lg:pl-12 lg:pr-10">
+            <p className="eyebrow text-ink-black">
               {categoryName} <span aria-hidden="true">·</span> {product.code}
             </p>
-            <h3 id="product-modal-title" className="display-3 mt-2 text-forest">
+            <h3 id="product-modal-title" className="display-3 mt-4 text-ink-black">
               {product.name}
             </h3>
 
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-ivory px-3 py-1 text-xs font-medium text-forest">
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="inline-flex items-center gap-1.5 rounded-none border border-solid border-[rgba(34,35,31,0.12)] px-3 py-1 text-xs font-medium text-ink-black">
                 <span
                   aria-hidden="true"
-                  className={cn("h-1.5 w-1.5 rounded-full", availabilityDot[product.availability])}
+                  className={cn("h-1.5 w-1.5 rounded-none", availabilityDot[product.availability])}
                 />
                 {availabilityLabels[product.availability]}
               </span>
-              <span className="font-display text-xl text-forest">{formatIDR(price)}</span>
+              <span className="font-display text-xl text-ink-black">
+                {formatIDR(price)}
+              </span>
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-muted">{product.description}</p>
+            <p className="mt-6 body-md text-ink-black/70 leading-relaxed">
+              {product.description}
+            </p>
 
-            <div className="border-t border-line my-6" aria-hidden="true" />
+            <div className="border-t border-solid border-[rgba(34,35,31,0.12)] my-8" aria-hidden="true" />
 
             <ProductOptions
               product={product}
@@ -167,9 +158,8 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               onNoteChange={setNote}
             />
 
-            {/* Order CTA */}
             {waUrl ? (
-              <div className="mt-8">
+              <div className="mt-10">
                 <a
                   href={waUrl}
                   target="_blank"
@@ -179,8 +169,9 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   <WhatsAppIcon className="h-4 w-4" />
                   Pesan via WhatsApp
                 </a>
-                <p className="mt-3 text-xs text-muted">
-                  Pesanan dikonfirmasi lewat chat — pembayaran & pengiriman menyusul.
+                <p className="mt-4 body-sm text-ink-black/60">
+                  Pesanan dikonfirmasi lewat chat — pembayaran & pengiriman
+                  menyusul.
                 </p>
                 {instagramUrl ? (
                   <a
@@ -188,9 +179,9 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Lihat ${product.name} di Instagram`}
-                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-forest underline-offset-2 transition-colors hover:text-terracotta-deep hover:underline"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink-black transition-colors hover:text-tomato-red"
                   >
-                    <InstagramIcon className="h-3.5 w-3.5" />
+                    <InstagramIcon className="h-4 w-4" />
                     Lihat di Instagram
                   </a>
                 ) : null}
@@ -198,12 +189,11 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             ) : null}
           </div>
 
-          {/* Close — fixed on mobile (stays visible while scrolling), absolute on desktop */}
           <button
             type="button"
             onClick={onClose}
             aria-label={`Tutup detail ${product.name}`}
-            className="fixed right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-cream/95 text-forest transition-colors hover:bg-cream lg:absolute lg:right-5 lg:top-5"
+            className="fixed right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-none bg-warm-paper/95 text-ink-black transition-colors hover:bg-warm-paper lg:absolute lg:right-6 lg:top-6"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
