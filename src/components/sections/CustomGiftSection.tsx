@@ -10,11 +10,11 @@ export function CustomGiftSection() {
   return (
     <section
       id="custom-gifts"
-      className="scroll-mt-20 bg-ink-black text-warm-paper py-20 sm:py-28"
+      className="scroll-mt-20 bg-ink-black text-warm-paper py-16 sm:py-20"
       aria-label="Custom order"
     >
       <Container>
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
           {/* Copy — left */}
           <div className="lg:col-span-6">
             <Reveal delay={0}>
@@ -24,12 +24,12 @@ export function CustomGiftSection() {
               </p>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="display-2 mt-4 text-balance text-warm-paper">
+              <h2 className="display-2 mt-2 text-balance text-warm-paper">
                 Make it personal.
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="body-lg mt-6 max-w-[28rem] text-warm-paper/80 leading-relaxed">
+              <p className="body-lg mt-4 max-w-[28rem] text-warm-paper/80 leading-relaxed">
                 Ceritakan momen, orang yang ingin kamu beri hadiah, dan budget
                 yang kamu siapkan. Kami bantu wujudkan.
               </p>

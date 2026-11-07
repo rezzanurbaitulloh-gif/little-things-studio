@@ -3,6 +3,9 @@ import { Archivo, Instrument_Serif } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
+// 1. Impor Agentation di sini
+import { Agentation } from "agentation";
+
 const display = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
@@ -67,7 +70,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="id" className={`${display.variable} ${body.variable}`}>
-      <body className="bg-warm-paper text-ink-black antialiased">{children}</body>
+      <body className="bg-warm-paper text-ink-black antialiased">
+        {children}
+        
+        {/* 2. Pasang komponen Agentation di dalam body (hanya aktif saat mode development) */}
+        {process.env.NODE_ENV === "development" && <Agentation />}
+      </body>
     </html>
   );
 }

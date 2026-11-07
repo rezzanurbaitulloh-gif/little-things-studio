@@ -70,7 +70,7 @@ export function FeaturedGallery() {
   return (
     <section
       id="collection"
-      className="scroll-mt-20 bg-warm-paper py-20 sm:py-28"
+      className="scroll-mt-20 bg-warm-paper py-16 sm:py-20"
       aria-labelledby="collection-title"
     >
       <Container>
@@ -81,10 +81,10 @@ export function FeaturedGallery() {
                 <span aria-hidden="true" className="text-ink-black">✳</span>
                 Koleksi
               </p>
-              <h2 id="collection-title" className="display-2 mt-4 text-balance text-ink-black">
+              <h2 id="collection-title" className="display-2 mt-2 text-balance text-ink-black">
                 Koleksi Pilihan
               </h2>
-              <p className="body-md mt-4 max-w-[32rem] text-ink-black/70 leading-relaxed">
+              <p className="body-md mt-2 max-w-[32rem] text-ink-black/70 leading-relaxed">
                 Setiap rangkaian dibuat satu per satu. Pilih yang paling
                 sesuai momenmu.
               </p>
@@ -123,7 +123,7 @@ export function FeaturedGallery() {
         </Reveal>
 
         {/* Asymmetric editorial grid */}
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:mt-20 lg:grid-cols-12 lg:gap-8">
+        <div className="mt-12 grid grid-cols-1 gap-8 lg:mt-16 lg:grid-cols-12 lg:gap-8">
           {/* Large product - left */}
           {filtered[0] ? (
             <Reveal
@@ -154,7 +154,7 @@ export function FeaturedGallery() {
 
         {/* Footer link */}
         <Reveal delay={200}>
-          <div className="mt-16 border-t border-solid border-[rgba(34,35,31,0.12)] pt-8 lg:mt-20">
+          <div className="mt-12 border-t border-solid border-[rgba(34,35,31,0.12)] pt-8 lg:mt-16">
             <Link
               href="/#collection"
               className="inline-flex items-center gap-2 text-ink-black transition-colors hover:text-tomato-red focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-tomato-red"

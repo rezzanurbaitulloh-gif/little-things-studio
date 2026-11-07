@@ -21,11 +21,11 @@ export function StorySection() {
   return (
     <section
       id="our-story"
-      className="scroll-mt-20 bg-warm-paper py-20 sm:py-28"
+      className="scroll-mt-20 bg-warm-paper py-16 sm:py-20"
       aria-labelledby="story-title"
     >
       <Container>
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-14">
           {/* Cerita — kiri */}
           <div className="lg:col-span-7">
             <Reveal delay={0}>
@@ -35,13 +35,13 @@ export function StorySection() {
               </p>
             </Reveal>
             <Reveal delay={100}>
-              <h2 id="story-title" className="display-2 mt-4 text-balance text-ink-black">
+              <h2 id="story-title" className="display-2 mt-2 text-balance text-ink-black">
                 Hal kecil bisa menyimpan{" "}
                 <span className="italic text-tomato-red">perasaan besar.</span>
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="body-lg mt-6 max-w-[34rem] text-ink-black/70 leading-relaxed">
+              <p className="body-lg mt-4 max-w-[34rem] text-ink-black/70 leading-relaxed">
                 Little Things Studio dimulai dari satu meja dapur, satu gulung
                 kertas kraft, dan satu keyakinan: hadiah tidak harus besar untuk
                 berarti. Karena itu kami sibuk dengan hal-hal kecil — ketegangan
@@ -50,13 +50,13 @@ export function StorySection() {
               </p>
             </Reveal>
 
-            <div className="mt-16 border-t border-solid border-[rgba(34,35,31,0.12)] pt-12">
+            <div className="mt-12 border-t border-solid border-[rgba(34,35,31,0.12)] pt-10">
               <Reveal delay={300}>
-                <h3 className="display-3 mb-6 text-balance text-ink-black">
+                <h3 className="display-3 mb-4 text-balance text-ink-black">
                   Cara kerja kami
                 </h3>
               </Reveal>
-              <div className="grid gap-8 sm:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-3">
                 {values.map((v) => (
                   <div key={v.title} className="border-t border-solid border-[rgba(34,35,31,0.12)] pt-6">
                     <Reveal

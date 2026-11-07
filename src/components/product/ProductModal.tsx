@@ -119,7 +119,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             />
           </div>
 
-          <div className="flex flex-col px-5 pb-12 pt-14 sm:px-8 lg:overflow-y-auto lg:py-14 lg:pl-12 lg:pr-10">
+          <div className="flex flex-col lg:h-full lg:min-h-0 lg:overflow-y-auto px-5 pb-12 pt-14 sm:px-8 lg:py-14 lg:pl-12 lg:pr-10">
             <p className="eyebrow text-ink-black">
               {categoryName} <span aria-hidden="true">·</span> {product.code}
             </p>

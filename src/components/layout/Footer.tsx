@@ -23,8 +23,8 @@ export function Footer() {
 
   return (
     <footer id="contact" className="bg-warm-paper text-ink-black border-t border-solid border-[rgba(34,35,31,0.12)]">
-      <Container className="pb-12 pt-20 sm:pt-24">
-        <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
+      <Container className="pb-10 pt-16 sm:pt-20">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-[28rem]">
             <span className="flex items-center gap-2.5">
               <LogoMark className="h-8 w-8 text-tomato-red" />
@@ -80,7 +80,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-solid border-[rgba(34,35,31,0.12)] pt-8 text-sm text-ink-black/50 sm:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-solid border-[rgba(34,35,31,0.12)] pt-8 text-sm text-ink-black/50 sm:flex-row">
           <p>
             © 2026 {siteConfig.name}. Hak cipta dilindungi.
           </p>

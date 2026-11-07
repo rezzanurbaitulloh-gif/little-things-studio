@@ -28,7 +28,7 @@ export function OccasionSection() {
   return (
     <section
       id="moments"
-      className="scroll-mt-20 bg-warm-paper py-20 sm:py-28"
+      className="scroll-mt-20 bg-warm-paper py-16 sm:py-20"
       aria-labelledby="moments-title"
     >
       <Container>
@@ -39,22 +39,22 @@ export function OccasionSection() {
                 <span aria-hidden="true" className="text-ink-black">✳</span>
                 Momen
               </p>
-              <h2 id="moments-title" className="display-2 mt-4 text-balance text-ink-black">
+              <h2 id="moments-title" className="display-2 mt-2 text-balance text-ink-black">
                 Pilih momennya,
                 <br />
                 <span className="italic text-tomato-red">kami siapkan sisanya.</span>
               </h2>
-              <p className="body-md mt-4 max-w-[32rem] text-ink-black/70 leading-relaxed">
+              <p className="body-md mt-2 max-w-[32rem] text-ink-black/70 leading-relaxed">
                 Satu sentuhan — koleksi di bawah langsung tersaring untuknya.
               </p>
             </div>
           </div>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-16 lg:mt-20 lg:grid-cols-12 lg:gap-12">
+        <div className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 lg:grid-cols-12 lg:gap-10">
           {/* Daftar editorial — kiri */}
           <Reveal delay={80} className="col-span-1 sm:col-span-12 lg:col-span-6">
-            <ol className="space-y-10">
+            <ol className="space-y-8">
               {orderedOccasions.map((occasion, i) => {
                 const active = selected === occasion.id;
                 return (
