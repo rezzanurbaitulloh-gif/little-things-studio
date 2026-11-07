@@ -13,7 +13,7 @@ export const products: Product[] = [
     category: "flower-bouquet",
     occasions: ["birthday", "anniversary", "just-because"],
     description:
-      "A round, abundant hand-tied bouquet of fresh roses and seasonal fillers, wrapped in our signature kraft and linen paper. The kind of arrangement that makes a doorway feel different.",
+      "Buket rose segar yang dirangkai tangan, utuh, dibungkus kertas kraft dan linen khami kami. Rangkaian yang membuat pintu rumah terasa berbeda.",
     price: 185000,
     priceLabel: "From Rp125.000",
     images: [
@@ -41,7 +41,7 @@ export const products: Product[] = [
     category: "flower-bouquet",
     occasions: ["anniversary", "thank-you", "just-because"],
     description:
-      "Warm sunset tones — orchids, pale roses and dried grasses gathered in a loose, meadow-style wrap. Made for slow evenings and soft light.",
+      "Tonais matahari terbenam — anggrek, rose pucat, dan rumput kering dikumpulkan dalam ikatan longgar gaya padang rumput. Dibuat untuk malam tenang dan cahaya lembut.",
     price: 210000,
     priceLabel: "From Rp160.000",
     images: [
@@ -67,7 +67,7 @@ export const products: Product[] = [
     category: "snack-bouquet",
     occasions: ["birthday", "graduation", "just-because"],
     description:
-      "A bouquet you can actually eat — chocolates and sweet treats arranged petal by petal with faux blooms and a satin bow. Surprisingly sturdy, dangerously gone in a day.",
+      "Buket yang bisa dimakan — cokelat dan manisan disusun kelopak demi kelopak dengan bunga tiruan dan pita satin. Kokohnya mengejutkan, hilang dalam sehari.",
     price: 165000,
     priceLabel: "From Rp165.000",
     images: [
@@ -94,7 +94,7 @@ export const products: Product[] = [
     category: "gift-hampers",
     occasions: ["thank-you", "birthday", "wedding"],
     description:
-      "A woven basket packed with curated snacks, artisanal bites and a handwritten card — finished with cellophane, ribbon and a dried flower sprig. Our most-gifted hamper for thank-you season.",
+      "Keranjang kerajinan penuh snack terpilih, camilan artisan, dan kartu tulisan tangan — diselesaikan dengan selofan, pita, dan cabang bunga kering. Hampers kami yang paling sering dikirim untuk saison terima kasih.",
     price: 295000,
     priceLabel: "From Rp295.000",
     images: [
@@ -121,7 +121,7 @@ export const products: Product[] = [
     category: "gift-box",
     occasions: ["birthday", "anniversary", "just-because"],
     description:
-      "A rigid keepsake box dressed in matte paper and a wide ribbon, filled with treats and trinkets chosen to match the person, not just the occasion.",
+      "Kotak kenangan keras dengan kertas mat dan pita lebar, diisi dengan camilan dan hiasan yang dipilih untuk orang, bukan sekadar momen.",
     price: 175000,
     priceLabel: "From Rp175.000",
     images: [
@@ -148,7 +148,7 @@ export const products: Product[] = [
     category: "graduation-gifts",
     occasions: ["graduation"],
     description:
-      "The wisuda essential — a bright hand-tied bouquet photographed beautifully next to any cap and gown, with an optional mini graduation plush and ribbon badge.",
+      "Esensial wisuda — buket rose putih yang dirangkai tangan, difoto indah di samping toga dan topi wisuda, dengan opsi mainan lembut wisuda mini dan pita peringatan.",
     price: 150000,
     priceLabel: "From Rp150.000",
     images: [
@@ -176,7 +176,7 @@ export const products: Product[] = [
     category: "souvenirs",
     occasions: ["wedding", "thank-you", "birthday"],
     description:
-      "Pocket-sized dried flower keepsakes with a mini greeting card — sweet for wedding favours, event goodie bags, or a small gesture that still says a lot.",
+      "Ingatan bunga kering ukuran kantung dengan kartu ucapan mini — manis untuk sukamanja pernikahan, goodie bag acara, atau gerbang kecil yang masih berarti banyak.",
     price: 25000,
     priceLabel: "From Rp25.000",
     images: [
@@ -203,7 +203,7 @@ export const products: Product[] = [
     category: "custom-gifts",
     occasions: ["birthday", "anniversary", "just-because", "thank-you"],
     description:
-      "Tell us the person, the story and the budget — we design the rest. A one-off gift box assembled around your idea, from vinyl-and-mug cozy themes to full self-care sets.",
+      "Ceritakan orangnya, ceritanya, dan budget-nya — kami desain sisanya. Kotak hadiah unik yang disusun di sekitar ide kamu, dari theme cozy vinyl-and-mug hingga set self-care lengkap.",
     price: 350000,
     priceLabel: "Starts from Rp350.000",
     images: [

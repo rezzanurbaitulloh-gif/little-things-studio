@@ -39,7 +39,7 @@ export function ProductImageGallery({ images, alt, name }: ProductImageGalleryPr
             type="button"
             onClick={() => go(-1)}
             aria-label={`Foto sebelumnya — ${name}`}
-            className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-forest shadow-md transition-colors hover:bg-cream sm:left-4"
+            className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-forest transition-colors hover:bg-cream sm:left-4"
           >
             <ChevronLeftIcon className="h-4 w-4" />
           </button>
@@ -47,11 +47,11 @@ export function ProductImageGallery({ images, alt, name }: ProductImageGalleryPr
             type="button"
             onClick={() => go(1)}
             aria-label={`Foto berikutnya — ${name}`}
-            className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-forest shadow-md transition-colors hover:bg-cream sm:right-4"
+            className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream/90 text-forest transition-colors hover:bg-cream sm:right-4"
           >
             <ChevronRightIcon className="h-4 w-4" />
           </button>
-          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-forest/45 px-3 py-2 backdrop-blur-sm">
+          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-cream px-3 py-2">
             {images.map((src, i) => (
               <button
                 key={src}

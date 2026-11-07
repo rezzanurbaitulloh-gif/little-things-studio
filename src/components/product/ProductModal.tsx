@@ -153,7 +153,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
             <p className="mt-4 text-sm leading-relaxed text-muted">{product.description}</p>
 
-            <div className="dotted-rule my-6" aria-hidden="true" />
+            <div className="border-t border-line my-6" aria-hidden="true" />
 
             <ProductOptions
               product={product}

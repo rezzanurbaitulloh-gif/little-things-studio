@@ -43,7 +43,7 @@ export function CustomGiftSection() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-5 max-w-lg leading-relaxed text-cream/70">
+              <p className="mt-5 max-w-lg leading-relaxed text-cream">
                 Cerita momen dan anggaranmu — kami bantu wujudkan lewat percakapan
                 WhatsApp. Foto kondisi akhir selalu kami kirim sebelum barang berangkat.
               </p>
@@ -66,7 +66,7 @@ export function CustomGiftSection() {
                     </span>
                     <div>
                       <p className="font-display text-lg text-cream">{step.title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-cream/60">{step.text}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-cream/90">{step.text}</p>
                     </div>
                   </li>
                 ))}
@@ -111,8 +111,8 @@ export function CustomGiftSection() {
                 ✳
               </span>
               <div>
-                <p className="font-display text-base leading-tight">Made-for-You Box</p>
-                <p className="text-xs text-cream/60">Satu ide, satu box, tidak ada yang sama.</p>
+                <p className="font-display text-base leading-tight">Box Untukmu</p>
+                <p className="text-xs text-forest">Satu ide, satu box, tidak ada yang sama.</p>
               </div>
             </Reveal>
           </div>

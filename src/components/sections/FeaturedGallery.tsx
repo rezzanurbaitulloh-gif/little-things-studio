@@ -2,15 +2,17 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { cn } from "@/lib/cn";
 import { ProductModal } from "@/components/product/ProductModal";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { occasions } from "@/data/occasions";
 import type { Product } from "@/types/product";
 import { availabilityLabels } from "@/lib/product-utils";
+import { cn } from "@/lib/cn";
+
 type FilterKind = "all" | "category" | "occasion";
 
 interface FilterState {
@@ -35,7 +37,6 @@ export function FeaturedGallery() {
   const [selected, setSelected] = useState<Product | null>(null);
   const closeModal = useCallback(() => setSelected(null), []);
 
-  // Terima filter momen dari OccasionSection (tombol momen di section E).
   useEffect(() => {
     const onSelectOccasion = (event: CustomEvent<string>) => {
       const occasionId = event.detail;
@@ -64,6 +65,9 @@ export function FeaturedGallery() {
     if (filter.kind === "category") return p.category === filter.id;
     return p.occasions.includes(filter.id as Product["occasions"][number]);
   });
+
+  // Editorial: Tile A (The Little Hamper) besar + 3 pendamping.
+  const [tileA, ...companions] = filtered;
 
   return (
     <section id="collection" className="scroll-mt-24 bg-cream py-20 sm:py-28" aria-labelledby="collection-title">
@@ -116,62 +120,115 @@ export function FeaturedGallery() {
           </div>
         </Reveal>
 
-        {/* Product grid */}
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {filtered.map((product) => (
-            <Reveal key={product.id} className="group block">
-              <button
-                type="button"
-                onClick={() => setSelected(product)}
-                aria-haspopup="dialog"
-                className="w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
-              >
-                <figure className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line bg-cream">
-                  <Image
-                    src={product.images[0]}
-                    alt={product.imageAlt}
-                    fill
-                    loading="lazy"
-                    sizes="(min-width: 1024px) 30vw, 90vw"
-                    className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                  />
-                </figure>
-                <div className="mt-4 flex flex-col gap-2">
-                  <p className="text-balance font-display text-lg text-forest">
-                    {product.name}
-                  </p>
-                  <p className="text-sm text-muted">{product.priceLabel}</p>
-                  <div className="flex items-center gap-2">
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "h-1.5 w-1.5 rounded-full",
-                        {
-                          available: "bg-sage",
-                          "made-to-order": "bg-butter",
-                          limited: "bg-terracotta",
-                        }[product.availability]
-                      )}
-                    />
-                    <span className="text-xs font-medium text-forest/70">
-                      {availabilityLabels[product.availability]}
-                    </span>
-                  </div>
-                </div>
-              </button>
+        {/* Editorial grid: 1 besar (kiri) + 3 pendamping (kanan) */}
+        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-5 lg:mt-14">
+          {tileA ? (
+            <Reveal
+              delay={80}
+              className="col-span-1 sm:col-span-12 lg:col-span-7"
+            >
+              <ProductTile
+                product={tileA}
+                large
+                onOpen={setSelected}
+              />
+            </Reveal>
+          ) : null}
+          {companions.map((product, index) => (
+            <Reveal
+              key={product.id}
+              delay={80 * (index + 1)}
+              className="col-span-1 sm:col-span-12 lg:col-span-5 lg:grid-cols-1 lg:grid-row-[span_2]"
+            >
+              <ProductTile product={product} onOpen={setSelected} />
             </Reveal>
           ))}
-          {filtered.length === 0 && (
-            <p className="mt-8 text-center text-muted">
-              Tidak ada produk yang cocok dengan filter tersebut.
-            </p>
-          )}
         </div>
+
+        {/* Footer link */}
+        <Reveal delay={200}>
+          <div className="mt-12 border-t border-line pt-6 lg:mt-16">
+            <Link
+              href="/#collection"
+              className="inline-flex items-center gap-2 text-forest underline-offset-4 transition-colors duration-300 ease-[var(--ease-soft)] hover:text-terracotta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+            >
+              Lihat semua koleksi <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </Reveal>
 
         {selected ? (
           <ProductModal product={selected} onClose={closeModal} />
         ) : null}
       </Container>
     </section>
+  );
+}
+
+interface ProductTileProps {
+  product: Product;
+  large?: boolean;
+  onOpen: (product: Product) => void;
+}
+
+function ProductTile({
+  product,
+  large = false,
+  onOpen,
+}: ProductTileProps) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(product)}
+      aria-haspopup="dialog"
+      className="group block w-full text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
+    >
+      <figure
+        className={cn(
+          "relative overflow-hidden border border-line bg-cream rounded-[1.75rem]",
+          large ? "aspect-[4/5]" : "aspect-[16/10]"
+        )}
+      >
+        <Image
+          src={product.images[0]}
+          alt={product.imageAlt}
+          fill
+          loading="lazy"
+          sizes="(min-width: 1024px) 30vw, 90vw"
+          className="object-cover transition-transform duration-700 ease-[var(--ease-soft)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        />
+      </figure>
+      <div className="mt-4 flex flex-col gap-2">
+        <p className={cn("text-balance font-display text-forest", large ? "text-xl lg:text-2xl" : "text-lg")}>
+          {product.name}
+        </p>
+        <p className="text-sm text-muted">{product.priceLabel}</p>
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className={cn(
+              "h-1.5 w-1.5 rounded-full",
+              {
+                available: "bg-sage",
+                "made-to-order": "bg-butter",
+                limited: "bg-terracotta",
+              }[product.availability]
+            )}
+          />
+          <span className="text-xs font-medium text-forest/70">
+            {availabilityLabels[product.availability]}
+          </span>
+        </div>
+      </div>
+      <span
+        aria-hidden="true"
+        className={cn(
+          "absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-line text-forest transition-colors duration-300 ease-[var(--ease-soft)] group-hover:border-terracotta group-hover:bg-terracotta group-hover:text-forest-deep",
+          large ? "mt-4 lg:mt-0" : "mt-4"
+        )}
+      >
+        ↗
+      </span>
+    </button>
   );
 }

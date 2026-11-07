@@ -38,7 +38,7 @@ export function FinalCTA() {
             </div>
           </Reveal>
           <Reveal delay={300}>
-            <p className="mt-6 text-sm text-forest/80">
+            <p className="mt-6 text-sm text-forest">
               Pesanan dirangkai per batch kecil — semakin cepat pesan, semakin aman
               untuk tanggal spesialmu.
             </p>

@@ -118,7 +118,7 @@ body {
 }
 
 .btn:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: none;
 }
 .btn-primary:hover:not(:disabled) {
   background: var(--color-terracotta-deep);
@@ -234,12 +234,4 @@ body {
 
 @utility text-balance {
   text-wrap: balance;
-}
-
-.dotted-rule {
-  background-image: radial-gradient(circle, var(--color-line) 1.5px, transparent 1.5px);
-  background-size: 12px 2px;
-  background-repeat: repeat-x;
-  background-position: center;
-  height: 2px;
 }

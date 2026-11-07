@@ -24,18 +24,19 @@ export function Footer() {
   const hasVisit = Boolean(siteConfig.locationLabel || siteConfig.businessHours);
 
   return (
-    <footer id="contact" className="bg-forest-deep text-cream">
+    <footer id="contact" className="bg-ivory text-forest">
       <Container className="pb-10 pt-16 sm:pt-20">
         {/* Big closing statement */}
-        <div className="flex flex-col gap-10 border-b border-cream/10 pb-12 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-10 border-b border-line pb-12 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
-            <p className="eyebrow mb-4 text-cream/90 flex items-center gap-2.5">
-              <span aria-hidden="true" className="text-terracotta">✳</span> {siteConfig.name}
+            <p className="eyebrow mb-4 flex items-center gap-2.5">
+              <span aria-hidden="true" className="text-terracotta">✳</span>
+              {siteConfig.name}
             </p>
             <p className="font-display text-[clamp(1.9rem,4vw,3rem)] leading-[1.1]">
-              A little gift,
+              Sebuah hadiah kecil,{" "}
               <br />
-              <em className="text-butter">a lot of meaning.</em>
+              <em className="italic text-terracotta">banyak makna.</em>
             </p>
           </div>
           <div className="flex flex-col gap-3 lg:items-end">
@@ -76,19 +77,19 @@ export function Footer() {
               <LogoMark className="h-8 w-8 text-terracotta" />
               <span className="font-display text-xl">Little Things</span>
             </span>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/60">
-              Thoughtfully made gifts for every little and big moment — wrapped
-              by hand, sent with heart.
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-forest/70">
+              Hadiah yang dirakit tangan untuk setiap momen kecil dan besar —
+              dibungkus dengan kertas kraft, dikirim dengan hati.
             </p>
           </div>
           <nav aria-label="Footer">
-            <p className="eyebrow mb-4 text-cream/50">Jelajahi</p>
+            <p className="eyebrow mb-4 text-forest/60">Jelajahi</p>
             <ul className="space-y-2.5">
               {footerNav.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-1 text-sm text-cream/80 transition-colors hover:text-butter"
+                    className="group inline-flex items-center gap-1 text-sm font-medium text-forest transition-colors hover:text-terracotta-deep"
                   >
                     {link.label}
                     <ArrowUpRightIcon className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
@@ -99,9 +100,9 @@ export function Footer() {
           </nav>
           {hasVisit ? (
             <div>
-              <p className="eyebrow mb-4 text-cream/50">Visit</p>
+              <p className="eyebrow mb-4 text-forest/60">Kunjungi</p>
               {siteConfig.locationLabel ? (
-                <p className="text-sm leading-relaxed text-cream/80">
+                <p className="text-sm leading-relaxed text-forest">
                   {siteConfig.locationLabel}
                 </p>
               ) : null}
@@ -109,8 +110,8 @@ export function Footer() {
                 <p
                   className={
                     siteConfig.locationLabel
-                      ? "mt-3 text-sm leading-relaxed text-cream/80"
-                      : "text-sm leading-relaxed text-cream/80"
+                      ? "mt-3 text-sm leading-relaxed text-forest"
+                      : "text-sm leading-relaxed text-forest"
                   }
                 >
                   {siteConfig.businessHours}
@@ -120,11 +121,11 @@ export function Footer() {
           ) : null}
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-cream/10 pt-6 text-xs text-cream/45 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-line pt-6 text-sm text-forest/60 sm:flex-row">
           <p>
-            © 2026 {siteConfig.name}. All rights reserved.
+            © 2026 {siteConfig.name}. Hak cipta dilindungi.
           </p>
-          <p className="font-display text-sm italic text-cream/55">
+          <p className="font-display text-sm italic text-forest/55">
             dirangkai dengan hati, dibungkus dengan rasa
           </p>
         </div>

@@ -105,8 +105,8 @@ export function CategoryNavigation() {
               href="/#custom-gifts"
               className="group block overflow-hidden rounded-[1.75rem] border border-line bg-cream transition-colors duration-300 ease-[var(--ease-soft)] hover:border-forest/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-terracotta"
             >
-              <div className="grid grid-cols-12 lg:aspect-[21/9]">
-                <figure className="relative col-span-12 aspect-[16/10] overflow-hidden lg:col-span-8 lg:aspect-auto">
+              <div className="grid grid-cols-12">
+                <figure className="relative col-span-12 aspect-[16/10] overflow-hidden lg:col-span-8 lg:aspect-[21/9]">
                   <Image
                     src="/images/products/made-for-you-01.webp"
                     alt="Gift box custom yang dirangkai khusus sesuai permintaan pelanggan"

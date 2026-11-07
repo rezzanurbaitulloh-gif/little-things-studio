@@ -75,7 +75,7 @@ export function Header() {
               <span className="font-display text-[1.35rem] tracking-tight">
                 Little Things
               </span>
-              <span className="eyebrow text-[0.5625rem] text-muted">Studio</span>
+              <span className="eyebrow text-[0.5625rem] text-forest">Studio</span>
             </span>
           </Link>
 
@@ -135,20 +135,20 @@ export function Header() {
         aria-modal="true"
         aria-label="Menu"
         className={cn(
-          "fixed inset-0 z-50 flex flex-col bg-forest text-cream transition-all duration-500 lg:hidden",
+          "fixed inset-0 z-50 flex flex-col bg-cream text-forest transition-all duration-500 lg:hidden",
           menuOpen ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
         <div className="flex h-[4.25rem] items-center justify-between px-5 sm:px-8">
           <span className="flex items-center gap-2.5">
-            <LogoMark className="h-8 w-8 text-butter" />
+            <LogoMark className="h-8 w-8 text-terracotta" />
             <span className="font-display text-[1.35rem]">Little Things</span>
           </span>
           <button
             type="button"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 transition-colors hover:border-cream"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-forest/15 transition-colors hover:border-terracotta"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
@@ -163,12 +163,12 @@ export function Header() {
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className={cn(
-                "font-display text-[2.6rem] leading-tight text-cream transition-all duration-500 hover:translate-x-2 hover:text-butter",
+                "font-display text-[2.6rem] leading-tight text-forest transition-all duration-500 hover:translate-x-2 hover:text-terracotta-deep",
                 menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
               )}
               style={{ transitionDelay: menuOpen ? `${120 + i * 70}ms` : "0ms" }}
             >
-              <span className="eyebrow mr-3 align-super text-[0.625rem] text-butter/80">
+              <span className="eyebrow mr-3 align-super text-[0.625rem] text-forest/60">
                 0{i + 1}
               </span>
               {link.label}
